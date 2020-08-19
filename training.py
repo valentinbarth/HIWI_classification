@@ -5,13 +5,13 @@ import torch
 import torch.optim as optim
 import torch.nn as nn
 
-from dataloading.dataset import MergedPatientDataset
+#from dataloading.dataset import MergedPatientDataset
 from training.cvtrainer import CVTrainer
 from training.trainer import Trainer
 
 import logging
 
-from models.unet import UNet3D, UNetCNN
+#from models.unet import UNet3D, UNetCNN
 from utils.losses import KLDivMSE
 
 # set device for training
@@ -38,8 +38,8 @@ train_config = {
 if __name__ == "__main__":
 
     # create pytorch dataset
-    dataset_tr = MergedPatientDataset(
-        "/home/florian/data/toycubes", to_RAM=True
+    dataset_imgwise = ImagewiseDataset(
+        "/home/vbarth/HIWI/classificationDataValentin/", to_RAM=True
     )
 
     dataset_tr.set_normalization()
@@ -53,7 +53,8 @@ if __name__ == "__main__":
     #)
 
     # set model, optimizer and loss criterion
-    model = UNet3D(fmaps_per_level=[16, 32, 64, 128])
+    #model = UNet3D(fmaps_per_level=[16, 32, 64, 128])
+    model = se_resnet20(num_classes=5, reduction=args.reduction)
 
     # optimizer
     optimizer = optim.AdamW(model.parameters(), lr=5e-4, weight_decay=1e-3)

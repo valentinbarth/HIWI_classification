@@ -50,7 +50,7 @@ class EarlyStopping(object):
         if self.n_bad_epochs > self.patience:
             if self.logger:
                 self.logger.info(
-                    f'Early Stopping: Criterion has'
+                    'Early Stopping: Criterion has'
                     'not improved for {self.n_bad_epochs}.'
                 )
             self._reset()
@@ -58,7 +58,7 @@ class EarlyStopping(object):
         else:
             self.logger.info(
                 'Current Patience Level: '
-                f'{self.n_bad_epochs}/{self.patience}'
+                '{self.n_bad_epochs}/{self.patience}'
             )
             return False
 
@@ -151,7 +151,7 @@ class Trainer(object):
         # log device name
         if 'cuda' in device or 'gpu' in device:
             self._logger.info('Using GPU '
-                              f'"{torch.cuda.get_device_name(device=device)}"'
+                              '"{torch.cuda.get_device_name(device=device)}"'
                               ' for training.')
             # maybe prefetch validation data
             if self._config['prefetch_validation']:
@@ -163,10 +163,10 @@ class Trainer(object):
         st_epoch = self._train_status['epoch']
         max_epoch = self._config['epochs']
         if st_epoch > 0:
-            self._logger.info(f'Resuming training from epoch {st_epoch} on.')
+            self._logger.info('Resuming training from epoch {st_epoch} on.')
             st_epoch += 1
         else:
-            self._logger.info(f'Starting training.')
+            self._logger.info('Starting training.')
             # print AMP info
             if self._config['amp'] and self._scaler._enabled:
                 self._logger.info('Automatic Mixed Precision is ENABLED')
@@ -177,7 +177,7 @@ class Trainer(object):
         for e in range(st_epoch, max_epoch):
             # current epoch
             self._train_status['epoch'] = e
-            self._logger.info(f'Starting epoch {e}')
+            self._logger.info('Starting epoch {e}')
 
             # measure time
             t_start = time.perf_counter()
@@ -274,7 +274,7 @@ class Trainer(object):
 
             # progress
             if (idx % np.ceil(bpe / 10) == 0):
-                self._logger.debug(f"Processing training batch {idx}/{bpe}")
+                self._logger.debug("Processing training batch {idx}/{bpe}")
 
             # push data to device
             inputs = inputs.to(device=device, non_blocking=non_blocking)
@@ -321,7 +321,7 @@ class Trainer(object):
 
             # progress
             if (idx % np.ceil(bpe / 10) == 0):
-                self._logger.debug(f"Processing training batch {idx}/{bpe}")
+                self._logger.debug("Processing training batch {idx}/{bpe}")
 
             # push data to device
             inputs = inputs.to(device=device, non_blocking=non_blocking)
@@ -368,7 +368,7 @@ class Trainer(object):
                 for idx, (inputs, targets) in enumerate(self._val_gpu_prefetch):
                     # progress
                     if (idx % np.ceil(bpe / 10) == 0):
-                        self._logger.debug(f"Processing validation batch {idx}/{bpe}")
+                        self._logger.debug("Processing validation batch {idx}/{bpe}")
 
                     if self._config['amp']:
                         with amp.autocast():
@@ -387,7 +387,7 @@ class Trainer(object):
             with torch.no_grad():
                 for idx, (inputs, targets) in enumerate(loader):
                     if (idx % np.ceil(bpe / 10) == 0):
-                        self._logger.debug(f"Processing validation batch {idx}/{bpe}")
+                        self._logger.debug("Processing validation batch {idx}/{bpe}")
                     inputs = inputs.to(device=device, non_blocking=non_blocking)
                     targets = targets.to(device=device, non_blocking=non_blocking)
 
@@ -409,9 +409,9 @@ class Trainer(object):
 
     def _log_progress(self, time):
         e = self._train_status['epoch']
-        self._logger.info(f"Epoch {e} finished --> Elapsed Time: {time}s")
-        self._logger.info(f"Avg. train loss: {self._train_status['train_loss'][e].item()}")
-        self._logger.info(f"Avg. validation loss: {self._train_status['val_loss'][e].item()}")
+        self._logger.info("Epoch {e} finished --> Elapsed Time: {time}s")
+        self._logger.info("Avg. train loss: {self._train_status['train_loss'][e].item()}")
+        self._logger.info("Avg. validation loss: {self._train_status['val_loss'][e].item()}")
 
     def _init_train_status(self):
         '''
@@ -438,11 +438,11 @@ class Trainer(object):
         date_str = now.strftime("%d_%m_%Y_%H.%M.%S")
 
         # init logger
-        logger = logging.getLogger(f"{self.__class__.__name__}")
+        logger = logging.getLogger("{self.__class__.__name__}")
         logger.setLevel(self._config['log_level'])
 
         # log to console and file
-        fh = logging.FileHandler(join(getcwd(), self._config['output_folder'], 'logs', f"training_{date_str}.log"))
+        fh = logging.FileHandler(join(getcwd(), self._config['output_folder'], 'logs', "training_{date_str}.log"))
         ch = logging.StreamHandler()
 
         # formatter
@@ -539,7 +539,7 @@ class Trainer(object):
         try:
             mkdir(join(work_dir, output_folder))
         except FileExistsError:
-            print(f'Output folder {join(work_dir, output_folder)} already exists, checkpoints might get overwritten!')
+            print('Output folder {join(work_dir, output_folder)} already exists, checkpoints might get overwritten!')
 
         # subfolders
         try:
@@ -550,29 +550,29 @@ class Trainer(object):
 
     def _log_init_info(self):
         self._logger.info('Successfully initialized.')
-        self._logger.info(f'Model: {repr(self._model)}')
-        self._logger.info(f'Optimizer: {repr(self._optimizer)}')
-        self._logger.info(f'Criterion: {repr(self._criterion)}')
+        self._logger.info('Model: {repr(self._model)}')
+        self._logger.info('Optimizer: {repr(self._optimizer)}')
+        self._logger.info('Criterion: {repr(self._criterion)}')
         if (hasattr(self._dataset, '_normalize') and
             hasattr(self._dataset, '_norm')):
             if self._dataset._normalize:
                 self._logger.info(
-                    f"Normalization: {repr(self._dataset._norm)}"
+                    "Normalization: {repr(self._dataset._norm)}"
                 )
 
-        self._logger.info(f'Number of total data: {len(self._dataset)}')
+        self._logger.info('Number of total data: {len(self._dataset)}')
 
-        self._logger.info(f'##### Training Configuration #####')
+        self._logger.info('##### Training Configuration #####')
         for key, val in self._config.items():
             if key == 'validation_indices' and len(self._config['validation_indices']) > 25:
                 self._logger.info(
-                    f'{key} --->  [{val[0]}, {val[1]}, {val[2]} ... {val[-3]}, {val[-2]}, {val[-1]}]'
+                    '{key} --->  [{val[0]}, {val[1]}, {val[2]} ... {val[-3]}, {val[-2]}, {val[-1]}]'
                 )
             elif key == 'log_level':
-                self._logger.info(f'{key} ---> {logging.getLevelName(val)}')
+                self._logger.info('{key} ---> {logging.getLevelName(val)}')
             else:
-                self._logger.info(f'{key} ---> {val}')
-        self._logger.info(f'##### Training Configuration #####')
+                self._logger.info('{key} ---> {val}')
+        self._logger.info('##### Training Configuration #####')
 
     def _save_config(self):
         torch.save(self._config, join(self._config['output_folder'], 'train_config.pt'))
@@ -606,7 +606,7 @@ class Trainer(object):
 
         # log lr update
         if after_lr < before_lr:
-            self._logger.info(f'{self._scheduler.__class__.__name__} reduced the learning rate from {before_lr} to {after_lr}')
+            self._logger.info('{self._scheduler.__class__.__name__} reduced the learning rate from {before_lr} to {after_lr}')
 
     @staticmethod
     def _sample_random_subset(data, N):
@@ -661,10 +661,10 @@ class Trainer(object):
                 # fill with default value if empty and check for type
                 dict_copy.setdefault(default_key, default_val)
                 if type(dict_copy[default_key]) != type(default_val):
-                    raise TypeError(f'{default_key} needs to be of {type(default_val)} but is {type(dict_copy[default_key])}!')
+                    raise TypeError('{default_key} needs to be of {type(default_val)} but is {type(dict_copy[default_key])}!')
             return dict_copy
         else:
-            raise TypeError(f"Config needs to be of {type(cls.__DEFAULT_CONFIG)} but is {type(config_dict)}!")
+            raise TypeError("Config needs to be of {type(cls.__DEFAULT_CONFIG)} but is {type(config_dict)}!")
 
     @classmethod
     def from_checkpoint(cls, model, optimizer, criterion, dataset, path,

@@ -131,12 +131,12 @@ def load_dataset(datapath):
                         [0,0,0,1]])     
     
     arrs = []
-    i = 0   #remove later   
+    #i = 0   #remove later   
     for root, dirs, files in os.walk(datapath, topdown=False):
         for name in files:   
-            i = i + 1
-            if i % 1000 != 1:  #just for overview, remove later
-                continue
+            #i = i + 1
+            #if i % 1000 != 1:  #just for overview, remove later
+                #continue
             if os.path.isfile(os.path.join(datapath, name)) == False:
                 continue
             
@@ -146,15 +146,16 @@ def load_dataset(datapath):
             #print("image: ", i, "shape: ", im.shape)
             #figure out the class (letter 65 in the path string refers to the class)
             #print(os.path.join(datapath, name), classes[int(name[6])-1])
-            img_label_pair = (im_crop, classes[int(name[6])-1]) #get class from the name
+            img_label_pair = (im, classes[int(name[6])-1]) #get class from the name
             arrs.append(img_label_pair)
                     
     print(len(img_label_pair), len(arrs))
     nparrs = np.array(arrs)
-    
+    print(nparrs.shape)
     all_imgs = nparrs[:,0]
     all_labels = nparrs[:,1]
-    print(all_labels)
+    #print(all_labels)
+    print (all_imgs.shape)
     
     return all_imgs, all_labels
     
@@ -179,7 +180,7 @@ class lung_cancer_dataset(Dataset):
     
     def __getitem__(selfself, idx):
         
-        self.images, self.labels = load_dataset(datapath = img_dir)
+        self.images, self.labels = load_dataset(datapath = datadir)
         
     
 '''        

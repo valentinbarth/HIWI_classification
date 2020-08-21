@@ -3,6 +3,8 @@ from PIL import Image, ImageDraw
 import torch
 from torchvision import transforms
 from torch.utils.data import Dataset
+#from transforms import ToTensor
+from torchvision.transforms import Compose
 
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
@@ -55,15 +57,31 @@ def crop(save_path, input, cls, n_img, height, width):
 
 # produce dataset of cropped images of the 4 classes (WS ecluded) in one folder
 #the class is indicated in the images names, the images are cropped (height,width)
-def create_dataset_mixed_cropped(path = datapath, target_dir = '/home/vbarth/HIWI/classificationDataValentin/mixed_cropped', height = 150, width = 150):
+def create_dataset_mixed_cropped(path = datapath, target_dir = '/home/vbarth/HIWI/classificationDataValentin/mixed_cropped', height = 150, width = 150, testsplit = 0.2):
 
     # Create target Directory if doesn't exist
     mixed_cropped = target_dir
+    #created root dir:
     if not os.path.exists(mixed_cropped):
         os.mkdir(mixed_cropped)
         print("Directory " , mixed_cropped ,  " Created ")
     else:    
         print("Directory " , mixed_cropped ,  " already exists")
+    #training dir: 
+    traindir = target_dir + "/train"   
+    if not os.path.exists(traindir):
+        os.mkdir(traindir)
+        print("Directory " , traindir ,  " Created ")
+    else:    
+        print("Directory " , traindir ,  " already exists")
+    #test dir:  
+    testdir = target_dir + "/test"  
+    if not os.path.exists(testdir):
+        os.mkdir(testdir)
+        print("Directory " , testdir ,  " Created ")
+    else:    
+        print("Directory " , testdir ,  " already exists")
+    
 
     classes = {'ADC' : 1,
                'SqCC': 2,
@@ -73,55 +91,62 @@ def create_dataset_mixed_cropped(path = datapath, target_dir = '/home/vbarth/HIW
     
     #classes = {'ADC' : 1}    # delete later to also use the other classes
     
-    n_img = 1
+    
     
     for cls in classes:
         current_path = path + cls
         print(current_path)
+        n_img = 1
         #find out number of instances per class
-        #n_files = (len([name for name in os.listdir(current_path) if os.path.isfile(os.path.join(current_path, name))]))
-        #for file in range(n_files):
+        n_files = (len([name for name in os.listdir(current_path) if os.path.isfile(os.path.join(current_path, name))]))
         for root, dirs, files in os.walk(current_path, topdown=False):
             for name in files:
                    
                 if os.path.isfile(os.path.join(current_path, name)) == False:
                     continue
+                #create trainset in traindir (from each class <testsplit> % is splitted for testing)
+                if n_img <= n_files * (1-testsplit):
+                    n_crop = crop(save_path = traindir, input = os.path.join(current_path, name), cls = classes[cls], n_img = n_img, height = height, width = width)
+                    if n_img % 100 == 0:
+                        print("cropped tiles train: ",n_crop)
+                #create testset in testdir
+                if n_img > n_files * (1-testsplit):
+                    n_crop = crop(save_path = testdir, input = os.path.join(current_path, name), cls = classes[cls], n_img = n_img, height = height, width = width)
+                    if n_img % 100 == 0:
+                        print("cropped tiles test: ",n_crop)
                 
-                n_crop = crop(save_path = mixed_cropped, input = os.path.join(current_path, name), cls = classes[cls], n_img = n_img, height = height, width = width)
-                print("cropped tiles: ",n_crop)
                 n_img = n_img + 1
+       
                 
 
                 
                 
-"""                 
+                
                  
 def load_dataset(datapath):          
     
-    classes = {'1' : np.array([1,0,0,0]),
-              '2' : np.array([0,1,0,0]),
-              '3' : np.array([0,0,1,0]),
-              '3' : np.array([0,0,0,1])}
-    
-    classes = {'1' : np.array([1,0,0,0])}    # delete later to also use the other classes
-     
+    classes = np.array([[1,0,0,0],
+                        [0,1,0,0],
+                        [0,0,1,0],
+                        [0,0,0,1]])     
     
     arrs = []
-                
+    i = 0   #remove later   
     for root, dirs, files in os.walk(datapath, topdown=False):
         for name in files:   
-            
+            i = i + 1
+            if i % 1000 != 1:  #just for overview, remove later
+                continue
             if os.path.isfile(os.path.join(datapath, name)) == False:
-                    continue
-                
+                continue
+            
             im = Image.open(os.path.join(datapath, name))    
             im = np.array(im)
             im = rgb2gray(im)/255
-            
-            #figure out the class
-            print(os.path.join(datapath, name), os.path.join(datapath, name)[-5])
-            
-            img_label_pair = [im_crop, classes[os.path.join(datapath, name)[-5]]] #get class from the name
+            #print("image: ", i, "shape: ", im.shape)
+            #figure out the class (letter 65 in the path string refers to the class)
+            #print(os.path.join(datapath, name), classes[int(name[6])-1])
+            img_label_pair = (im_crop, classes[int(name[6])-1]) #get class from the name
             arrs.append(img_label_pair)
                     
     print(len(img_label_pair), len(arrs))
@@ -137,24 +162,36 @@ def load_dataset(datapath):
     #all_labels = torch.tensor(nparrs[:,1])
     #print(tnsr.shape)
             
-            
+load_dataset('/home/vbarth/HIWI/classificationDataValentin/mixed_cropped/test')           
 
 
 
-
+'''
 class lung_cancer_dataset(Dataset):
     
-    def __init__(self, img_dir="../HIWI/classificationDataValentin/DataBase"):
-        self.images, self.labels = load_dataset(datapath = '/home/vbarth/HIWI/classificationDataValentin/mixed_cropped')
-       
+    def __init__(self, datadir, transforms = [ToTensor()]):
+        self.datadir = datadir
+        self.transforms = transforms
         
-    """    
+    
+    def __len__(self):
+        return (len([name for name in os.listdir(self.datadir) if os.path.isfile(os.path.join(self.datadir, name))]))
+    
+    def __getitem__(selfself, idx):
         
+        self.images, self.labels = load_dataset(datapath = img_dir)
+        
+    
+'''        
         
     
     
-    
-create_dataset_mixed_cropped()    
+
+#Frist create the dataset...already done: /home/vbarth/HIWI/classificationDataValentin/mixed_cropped
+#create_dataset_mixed_cropped()   # about 100000 cropped images depending on crop size
+   
+
+
     
     
     

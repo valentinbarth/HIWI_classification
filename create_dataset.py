@@ -3,7 +3,6 @@ from PIL import Image, ImageDraw
 import torch
 from torchvision import transforms
 from torch.utils.data import Dataset
-#from transforms import ToTensor
 from torchvision.transforms import Compose
 
 import matplotlib.image as mpimg
@@ -13,7 +12,7 @@ import numpy as np
 #import glob
 import random
 
-# set the dataset dir
+# original dataset dir, there will be created another dir which will actually be used by the load_dataset func
 datapath = '/home/vbarth/HIWI/classificationDataValentin/DataBase/'
 
 
@@ -125,7 +124,7 @@ def create_dataset_mixed_cropped(path = datapath, target_dir = '/home/vbarth/HIW
                  
 def load_dataset(datapath):          
     
-    classes = np.array([[1,0,0,0],
+    classes = np.array([[1,0,0,0],  #np.eye(number of classes)
                         [0,1,0,0],
                         [0,0,1,0],
                         [0,0,0,1]])     
@@ -142,57 +141,85 @@ def load_dataset(datapath):
             
             im = Image.open(os.path.join(datapath, name))    
             im = np.array(im)
-            im = rgb2gray(im)/255
+            #print (im.shape)
+            #for better runtime: im = rgb2gray(im)  #/255 is done by the ToTensor operation
             #print("image: ", i, "shape: ", im.shape)
             #figure out the class (letter 65 in the path string refers to the class)
             #print(os.path.join(datapath, name), classes[int(name[6])-1])
-            img_label_pair = (im, classes[int(name[6])-1]) #get class from the name
+            img_label_pair = [im, classes[int(name[6])-1]] #get class from the name
             arrs.append(img_label_pair)
                     
-    print(len(img_label_pair), len(arrs))
+    #print(len(img_label_pair), len(arrs))
     nparrs = np.array(arrs)
     print(nparrs.shape)
     all_imgs = nparrs[:,0]
     all_labels = nparrs[:,1]
     #print(all_labels)
-    print (all_imgs.shape)
-    
+    #print (all_imgs.shape, all_imgs.dtype)
+    #print (all_labels.shape, all_labels.dtype)
+    all_imgs = np.array(all_imgs)
+    all_labels = np.array(all_labels)
+    print (all_imgs.shape, all_imgs.dtype)
+    print (all_labels.shape, all_labels.dtype)
     return all_imgs, all_labels
     
     #all_imgs = torch.tensor(nparrs[:,0])
     #all_labels = torch.tensor(nparrs[:,1])
     #print(tnsr.shape)
             
-load_dataset('/home/vbarth/HIWI/classificationDataValentin/mixed_cropped/test')           
+#load_dataset('/home/vbarth/HIWI/classificationDataValentin/mixed_cropped/test')           
 
 
 
-'''
-class lung_cancer_dataset(Dataset):
+
+class imagewise_dataset(Dataset):
     
-    def __init__(self, datadir, transforms = [ToTensor()]):
+    def __init__(self, datadir, transforms = transforms.ToTensor()):
         self.datadir = datadir
         self.transforms = transforms
+        self.composed_trsfm = Compose(transforms)
+        self.images, self.labels = load_dataset(datapath = datadir)
         
     
     def __len__(self):
         return (len([name for name in os.listdir(self.datadir) if os.path.isfile(os.path.join(self.datadir, name))]))
     
-    def __getitem__(selfself, idx):
+    def __getitem__(self, idx):
+            image = self.images[idx]
+            label = self.labels[idx]
+            #image, label = self.composed_trsfm((image, label)) #does not work
+            image = self.transforms(image)
+            label = torch.tensor(label)
+            return image, label
         
-        self.images, self.labels = load_dataset(datapath = datadir)
         
     
-'''        
+    
+    
+    
+       
         
+if __name__ == "__main__":
     
+    import time     
     
 
-#Frist create the dataset...already done: /home/vbarth/HIWI/classificationDataValentin/mixed_cropped
-#create_dataset_mixed_cropped()   # about 100000 cropped images depending on crop size
-   
-
-
+    #Frist create the dataset...already done: /home/vbarth/HIWI/classificationDataValentin/mixed_cropped
+    #create_dataset_mixed_cropped()   # about 100000 cropped images depending on crop size
+    dataset = imagewise_dataset(datadir = '/home/vbarth/HIWI/classificationDataValentin/mixed_cropped/test',)
+    
+    print (dataset.images.shape, len(dataset))
+    #print(dataset.images[:10], dataset.labels[:10])
+    t1 = time.perf_counter()
+    image, label = dataset[np.random.randint(len(dataset))]
+    t2 = time.perf_counter() - t1
+    
+    print("get_item took {} s".format(t2))
+    
+    print(image.shape, label.shape, image.dtype, label.dtype)
+    
+    #plt.imshow(image.transpose((1,2,0)))
+    #plt.show
     
     
     

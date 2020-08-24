@@ -206,7 +206,7 @@ if __name__ == "__main__":
 
     #Frist create the dataset...already done: /home/vbarth/HIWI/classificationDataValentin/mixed_cropped
     #create_dataset_mixed_cropped()   # about 100000 cropped images depending on crop size
-    dataset = imagewise_dataset(datadir = '/home/vbarth/HIWI/classificationDataValentin/mixed_cropped/test',)
+    dataset = imagewise_dataset(datadir = '/home/vbarth/HIWI/classificationDataValentin/mixed_cropped/test')
     
     print (dataset.images.shape, len(dataset))
     #print(dataset.images[:10], dataset.labels[:10])

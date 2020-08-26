@@ -31,8 +31,8 @@ train_config = {
     'epochs': 10,   #change to ~200 
     'batches_per_epoch': 1400,
     'batch_size': 64,
-    'num_workers': 2,
-    'output_folder': 'se_net_trained',
+    'num_workers': 1,
+    'output_folder': 'Runs/resnet_trained',
     'validation_split': 0.1,
     'validation_indices': [],
     'prefetch_validation': False,
@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
     # set model, optimizer and loss criterion
     #model = UNet3D(fmaps_per_level=[16, 32, 64, 128])
-    model = se_resnet20(num_classes=4, reduction=16)  # choose se_resnet20 or resnet20 for example
+    model = resnet20(num_classes=4)  # choose se_resnet20(num_classes=4, reduction=16) or resnet20(num_classes=4) for example
 
     # optimizer
     #optimizer = optim.AdamW(model.parameters(), lr=5e-4, weight_decay=1e-3)

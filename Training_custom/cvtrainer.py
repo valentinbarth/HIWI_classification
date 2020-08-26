@@ -5,7 +5,7 @@ from torch.cuda import amp
 
 import numpy as np
 
-from training.trainer import Trainer
+from Training_custom.trainer import Trainer
 
 from os import getcwd, mkdir
 from os.path import join
@@ -48,20 +48,20 @@ class CVTrainer(Trainer):
         try:
             mkdir(join(work_dir, output_folder))
         except FileExistsError:
-            print('Output folder {join(work_dir, output_folder)} already exists, checkpoints might get overwritten!')
+            print('Output folder {} already exists, checkpoints might get overwritten!'.format(join(work_dir, output_folder)))
 
         # create subfolders for each cv fold
         for i in range(1, self._nfolds+1):
             # fold
             try:
-                mkdir(join(work_dir, output_folder, 'fold_{i}'))
+                mkdir(join(work_dir, output_folder, 'fold_{}'.format(i)))
             except FileExistsError:
                 pass
 
             # subfolders
             try:
-                mkdir(join(work_dir, output_folder, 'fold_{i}', 'logs'))
-                mkdir(join(work_dir, output_folder, 'fold_{i}', 'checkpoints'))
+                mkdir(join(work_dir, output_folder, 'fold_{}'.format(i), 'logs'))
+                mkdir(join(work_dir, output_folder, 'fold_{}'.format(i), 'checkpoints'))
             except FileExistsError:
                 pass
 
@@ -124,7 +124,7 @@ class CVTrainer(Trainer):
 
             # set finished flag
             self._config["finished_fold"] = True
-            self._logger.info("Finished training on Fold {ifold}.")
+            self._logger.info("Finished training on Fold {}.".format(ifold))
 
             # switch to next fold
             if ifold != self._nfolds:
@@ -140,11 +140,11 @@ class CVTrainer(Trainer):
         # config infos
         top_folder = self._config['output_folder'].split('/')[0]
 
-        self._config['output_folder'] = join(top_folder, 'fold_{fold}')
+        self._config['output_folder'] = join(top_folder, 'fold_{}'.format(fold))
         self._config['finished_fold'] = False
 
         # train and validation data
-        self._train_subset, self._val_subset = self._cvsubsets['fold_{fold}']
+        self._train_subset, self._val_subset = self._cvsubsets['fold_{}'.format(fold)]
 
         # save val indices for info/chkpt resuming
         self._config['validation_indices'] = self._val_subset.indices

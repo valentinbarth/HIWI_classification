@@ -124,10 +124,11 @@ def create_dataset_mixed_cropped(path = datapath, target_dir = '/home/vbarth/HIW
                  
 def load_dataset(datapath):          
     
-    classes = np.array([[1,0,0,0],  #np.eye(number of classes)
-                        [0,1,0,0],
-                        [0,0,1,0],
-                        [0,0,0,1]])     
+    #only for one hot encoding, but Cross entropy wants just 1D tensor (batchsize,class)
+    #classes = np.array([[1,0,0,0],  #np.eye(number of classes)
+    #                    [0,1,0,0],
+    #                    [0,0,1,0],
+    #                    [0,0,0,1]])     
     
     arrs = []
     #i = 0   #remove later   
@@ -146,7 +147,7 @@ def load_dataset(datapath):
             #print("image: ", i, "shape: ", im.shape)
             #figure out the class (letter 65 in the path string refers to the class)
             #print(os.path.join(datapath, name), classes[int(name[6])-1])
-            img_label_pair = [im, classes[int(name[6])-1]] #get class from the name
+            img_label_pair = [im, int(name[6])-1] #get class from the name
             arrs.append(img_label_pair)
                     
     #print(len(img_label_pair), len(arrs))

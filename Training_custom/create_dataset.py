@@ -152,7 +152,7 @@ def load_dataset(datapath):
                     
     #print(len(img_label_pair), len(arrs))
     nparrs = np.array(arrs)
-    print(nparrs.shape)
+    print("number of samples: ", len(nparrs[:,0]))
     all_imgs = nparrs[:,0]
     all_labels = nparrs[:,1]
     #print(all_labels)
@@ -160,8 +160,8 @@ def load_dataset(datapath):
     #print (all_labels.shape, all_labels.dtype)
     all_imgs = np.array(all_imgs)
     all_labels = np.array(all_labels)
-    print (all_imgs.shape, all_imgs.dtype)
-    print (all_labels.shape, all_labels.dtype)
+    #print (all_imgs.shape, all_imgs.dtype)
+    #print (all_labels.shape, all_labels.dtype)
     return all_imgs, all_labels
     
     #all_imgs = torch.tensor(nparrs[:,0])
@@ -209,7 +209,7 @@ if __name__ == "__main__":
     #create_dataset_mixed_cropped()   # about 100000 cropped images depending on crop size
     dataset = imagewise_dataset(datadir = '/home/vbarth/HIWI/classificationDataValentin/mixed_cropped/test')
     
-    print (dataset.images.shape, len(dataset))
+    #print (dataset.images.shape, len(dataset))
     #print(dataset.images[:10], dataset.labels[:10])
     t1 = time.perf_counter()
     image, label = dataset[np.random.randint(len(dataset))]

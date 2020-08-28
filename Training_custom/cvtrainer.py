@@ -138,7 +138,8 @@ class CVTrainer(Trainer):
         '''
 
         # config infos
-        top_folder = self._config['output_folder'].split('/')[0]
+        folders_seperate = self._config['output_folder'].split('/')
+        top_folder = folders_seperate[0]+"/"+folders_seperate[1]
 
         self._config['output_folder'] = join(top_folder, 'fold_{}'.format(fold))
         self._config['finished_fold'] = False

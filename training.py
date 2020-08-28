@@ -16,8 +16,6 @@ from senet.se_resnet import se_resnet20
 
 import logging
 
-#from models.unet import UNet3D, UNetCNN
-#from utils.losses import KLDivMSE
 
 # set device for training
 cuda_enabled_gpu = torch.cuda.is_available()
@@ -45,18 +43,8 @@ if __name__ == "__main__":
     # create pytorch dataset
     dataset_imgwise = Training_custom.create_dataset.imagewise_dataset(datadir = '/home/vbarth/HIWI/classificationDataValentin/mixed_cropped/train')
     
-    #dataset_tr.set_normalization()
-
-    #dataset_tr.set_normalization(
-    #    {
-    #        'HU_lower_bound': -1000,
-    #        'HU_upper_bound': 2100,
-    #        'dose_norm': 8.25381e-5
-    #    }
-    #)
-
+    
     # set model, optimizer and loss criterion
-    #model = UNet3D(fmaps_per_level=[16, 32, 64, 128])
     model = resnet20(num_classes=4)  # choose se_resnet20(num_classes=4, reduction=16) or resnet20(num_classes=4) for example
 
     # optimizer
@@ -67,7 +55,6 @@ if __name__ == "__main__":
     scheduler = optim.lr_scheduler.StepLR(optimizer, 80, 0.1)
     
     # loss
-    #criterion = (alpha=1., reduction='mean')
     criterion = F.cross_entropy
     
     # initialize trainer instance

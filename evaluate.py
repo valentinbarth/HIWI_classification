@@ -1,4 +1,5 @@
 import torch
+from torch.utils.data import Dataset, DataLoader
 import matplotlib.pyplot as plt
 #import seaborn as sns; sns.set()
 import numpy as np
@@ -6,78 +7,59 @@ import os
 from os.path import join
 import argparse
 
+import Training_custom.create_dataset
+
+from senet.baseline import resnet20
+from senet.se_resnet import se_resnet20
 
 # path zu einem checkpoint
-CHKPT = "top_folder/fold_1/checkpoints/train_chkpt_100.tar"
+CHKPT = "Runs/se_net_trained/fold_1/checkpoints/train_chkpt_9.tar"
+
+device = "cuda"
 
 # Das file train_chkpt_100.tar is ein dictionary das ein snapshot vom trainingszustand 
 # der 100. epoche ist.
-# Dich interessieren eig nur die keys "train_loss", "val_loss" und "model_state_dict".
+# es interessieren eig nur die keys "train_loss", "val_loss" und "model_state_dict".
 # Train und val loss sind 1D torch tensors die den mean loss von der jeweiligen epoche (idx)
 # halten. 
 train_status = torch.load(CHKPT, map_location='cpu')
-print(train_status)
+#print(train_status)
 
 # model wiederherstellen
-model = ...
+model = resnet20(num_classes=4)  #alternatively: se_resnet20(num_classes=4, reduction=16)
 model.load_state_dict(train_status['model_state_dict'])
 model.eval()
 
-# jetzt kannst du das model benutzen wie du willst, z.b. übers test
-# set loopen und predictions raushauen
-test_data = ...
 
-accs = []
-for x, y in test_data:
-    y_pred = model(x)
+
+
+test_data = Training_custom.create_dataset.imagewise_dataset(datadir = '/home/vbarth/HIWI/classificationDataValentin/mixed_cropped/test')
+#dataloader = DataLoader(test_data, batch_size=16,
+#                       shuffle=False, num_workers=0)
+
+
+acc=0   #initialize accuracy
+i = 0   #will count up
+for x, y in test_data:  #iterate over testset
+   
+    x = x.unsqueeze(0)  #add one dimension (batch missing) to get 4d tensor
+    y_pred = model(x).squeeze()
+    pred, ind = torch.max(y_pred, 0)
     
-    acc = calc_accuracy(y, y_pred)
+       
+    if y.item() == ind.item():
+        acc = acc + 1   #add one when the prediction was right else add nothing
+    
+    i = i +1 ##print every 3000th sampel
+    if i % 3000 == 0:
+        print("Sample: ", i, "\n y_pred: ",y_pred, "\n pred: ", pred, "\n ind: ", ind, "\n y: ", y.item())
 
-    accs.append(acc)
+print("Accuracy: ", acc/len(test_data)) ##def of accuracy
 
-print(np.mean(acc))
-
-
+#Acc was 0.8882
 
 
-##############Traincurve##############
 
-# Parsing
-parser = argparse.ArgumentParser()
-parser.add_argument('-d', '--dir', type=str, metavar='', required=True, help='Directory of stored checkpoints.')
-parser.add_argument('-i', '--identifier', type=str, metavar='', required=True, help='Outputfile identifier (folder of model used).')
-parser.add_argument('-e', '--epochs', type=int, metavar='', required=True, help='Number of epochs to plot')
 
-args = parser.parse_args()
-working_dir = os.getcwd()
-save_path = join(working_dir, "evaluation", "plots")
-try:
-    os.mkdir(save_path)
-except FileExistsError:
-    pass
 
-train_data_path = join(working_dir, args.dir, "checkpoints", "train_chkpt_" + str(args.epochs) + ".tar")
 
-# load in data
-train_data = (torch.load(train_data_path, map_location='cpu')['train_loss'].numpy()[:args.epochs])
-val_data = (torch.load(train_data_path, map_location='cpu')['val_loss'].numpy()[:args.epochs])
-n_epochs = args.epochs
-epoch_arr = np.arange(n_epochs)
-
-# losses
-plt.figure(figsize=(15, 8))
-plt.subplot(121)
-plt.plot(epoch_arr, np.log10(train_data), label="Train Loss")
-plt.plot(epoch_arr, np.log10(val_data), label="Validation Loss")
-plt.xlabel("Epoch")
-plt.ylabel(r"$\log_{10}\left(MSE\right)$")
-plt.legend()
-plt.subplot(122)
-plt.plot(epoch_arr, train_data, label="Train Loss")
-plt.plot(epoch_arr, val_data, label="Validation Loss")
-plt.xlabel("Epoch")
-plt.ylabel("MSE")
-plt.legend()
-plt.tight_layout()
-plt.savefig(join(save_path, "loss_curve_" + args.identifier + ".png"))
-plt.show()

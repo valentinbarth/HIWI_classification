@@ -7,7 +7,7 @@ import os
 from os.path import join
 import argparse
 
-import Training_custom.create_dataset
+#import Training_custom.load_dataset
 
 from senet.baseline import resnet20
 from senet.se_resnet import se_resnet20

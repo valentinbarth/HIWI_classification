@@ -9,7 +9,7 @@ import torch.nn.functional as F
 
 from Training_custom.trainer import Trainer
 from Training_custom.cvtrainer import CVTrainer
-import Training_custom.create_dataset
+import Training_custom.load_dataset
 
 from senet.baseline import resnet20
 from senet.se_resnet import se_resnet20
@@ -41,7 +41,7 @@ train_config = {
 if __name__ == "__main__":
 
     # create pytorch dataset
-    dataset_imgwise = Training_custom.create_dataset.imagewise_dataset(datadir = '/home/vbarth/HIWI/classificationDataValentin/mixed_cropped/train')
+    dataset_imgwise = Training_custom.load_dataset.imagewise_dataset(datadir = '/home/vbarth/HIWI/classificationDataValentin/mixed_cropped/train')
     
     
     # set model, optimizer and loss criterion

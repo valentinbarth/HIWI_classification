@@ -7,7 +7,7 @@ import os
 from os.path import join
 import argparse
 
-import Training_custom.create_dataset
+import Training_custom.load_dataset
 
 from senet.baseline import resnet20
 from senet.se_resnet import se_resnet20
@@ -33,7 +33,7 @@ model.eval()
 
 
 
-test_data = Training_custom.create_dataset.imagewise_dataset(datadir = '/home/vbarth/HIWI/classificationDataValentin/mixed_cropped/test')
+test_data = Training_custom.load_dataset.imagewise_dataset(datadir = '/home/vbarth/HIWI/classificationDataValentin/mixed_cropped/test')
 #dataloader = DataLoader(test_data, batch_size=16,
 #                       shuffle=False, num_workers=0)
 

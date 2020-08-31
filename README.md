@@ -7,22 +7,24 @@ An implementation of SENet, proposed in **Squeeze-and-Excitation Networks** by J
 
 The codebase is tested on the following setting.
 
-* Python>=3.8
+* Python>=3.6.9
 * PyTorch>=1.6.0
 * torchvision>=0.7
 
+You can use the files in the folder `Docker` to accomplish these settings.
+
 ## Dataset and Preprocessing
 
-The dataset is supplied by Marlen (Dr. Weiss?). The preprocessing of the data is done in the module **rearrange_dataset**. The images are cropped (further data augmentation is not performed but might be added) checked for white space (and in case of more than 50% white discarded,only background)  The dataset is split into a test (20%) and a train (80%) set. The class will be denoted in the name (and not in the folder anymore).
+The dataset is supplied by Marlen (Dr. Weiss?). The preprocessing of the data is done in the module `rearrange_dataset`. The images are cropped (further data augmentation is not performed but might be added) checked for white space (and in case of more than 50% white discarded,only background)  The dataset is split into a test (20%) and a train (80%) set. The class will be denoted in the name (and not in the folder anymore).
 
-Before running **"python rearrange_dataset.py"** you should give the right datapaths in the beginning of the file:
-* **datapath** should be the path to the original data supplied by Marlen
-* **new_datapath** should be the path to the new created dataset
+Before running `python rearrange_dataset.py` you should give the right datapaths in the beginning of the file:
+* `datapath` should be the path to the original data supplied by Marlen
+* `new_datapath` should be the path to the new created dataset
 
 Some hyperparameters might be adjusted if wished (but defaults are given):
-- the number of images split for testing
-- the size of the cropped images (default 150x150, would not go smaller because then there is not enough structure in one sample)
-- the threshold for discarding white images.
+- the number of images split for testing (when calling the function in the end)
+- the size of the cropped images (default 150x150, would not go smaller because then there is not enough structure in one sample, also when calling)
+- the threshold for discarding white images (in the `crop` function)
 
 
 Different Resnet and SE-ResNet architectures (18, 34, 50, 101, 152/20, 32) are implemented and can be choosen.

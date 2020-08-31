@@ -1,8 +1,31 @@
 # SENet.pytorch
 
-An implementation of SENet, proposed in **Squeeze-and-Excitation Networks** by Jie Hu, Li Shen and Gang Sun, who are the winners of ILSVRC 2017 classification competition.
+An implementation of SENet, proposed in **Squeeze-and-Excitation Networks** by Jie Hu, Li Shen and Gang Sun, who are the winners of ILSVRC 2017 classification competition. The baseline (model implementation in pytorch) is taken as it is (for the most part) from https://github.com/moskomule/senet.pytorch/tree/58844943617b5215f2d3eab149735ac4a66ed393. 
 
-Now SE-ResNet (18, 34, 50, 101, 152/20, 32) and SE-Inception-v3 are implemented.
+
+## Pre-requirements
+
+The codebase is tested on the following setting.
+
+* Python>=3.8
+* PyTorch>=1.6.0
+* torchvision>=0.7
+
+
+
+The dataset is supplied by Marlen (Dr. Weiss?). The preprocessing of the data is done in the module rearrange_dataset. The images are cropped (further data augmentation is not performed but might be added) checked for white space (and in case of more than 50% white discarded,only background)  The dataset is split into a test (20%) and a train (80%) set. The class will be denoted in the name (and not in the folder anymore).
+
+Before running "python rearrange_dataset.py" you should give the right datapaths in the beginning of the file:
+-datapath should be the path to the original data supplied by marlen
+-new_datapath should be the path to the new created dataset
+
+Some hyperparameters might be adjusted if wished (but defaults are given):
+- the number of images split for testing
+- the size of the cropped images (default 150x150, would not go smaller because then there is not enough structure in one sample)
+- the threshold for discarding white images.
+
+
+Different Resnet and SE-ResNet architectures (18, 34, 50, 101, 152/20, 32) are implemented and can be choosen.
 
 * `python cifar.py` runs SE-ResNet20 with Cifar10 dataset.
 
@@ -14,13 +37,6 @@ Now SE-ResNet (18, 34, 50, 101, 152/20, 32) and SE-Inception-v3 are implemented.
 
 For SE-Inception-v3, the input size is required to be 299x299 [as the original Inception](https://github.com/tensorflow/models/tree/master/inception).
 
-## Pre-requirements
-
-The codebase is tested on the following setting.
-
-* Python>=3.8
-* PyTorch>=1.6.0
-* torchvision>=0.7
 
 ### For training
 

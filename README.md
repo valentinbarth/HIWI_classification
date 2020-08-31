@@ -11,7 +11,7 @@ The codebase is tested on the following setting.
 * PyTorch>=1.6.0
 * torchvision>=0.7
 
-
+## Dataset and Preprocessing
 
 The dataset is supplied by Marlen (Dr. Weiss?). The preprocessing of the data is done in the module rearrange_dataset. The images are cropped (further data augmentation is not performed but might be added) checked for white space (and in case of more than 50% white discarded,only background)  The dataset is split into a test (20%) and a train (80%) set. The class will be denoted in the name (and not in the folder anymore).
 

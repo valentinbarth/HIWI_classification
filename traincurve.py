@@ -15,56 +15,71 @@ from senet.se_resnet import se_resnet20
 '''
 traincurve.py plottet losses von einem training. Aufruf  über:
  
-python traincurve.py -d ?top_folder/fold_x/? -i ?name des outputfiles? -e checkpoint_epoche
+python traincurve.py -d ?top_folder/? -i ?name des outputfiles? -e checkpoint_epoche
  
 also z.B.
-python traincurve.py -d "Runs/se_net_trained/fold_1" -i "testfile" -e 9
+python traincurve.py -d "Runs/se_net_trained/" -i "se_net" -e 9
  
 train_chkpt_9.tar muss es dann geben, das file wird da geladen und benutzt. Das speichert den plot unter
                 evaluation/plots
-, wobei beide Verzeichnisse erstellt werden.
+wobei beide Verzeichnisse erstellt werden.
 '''
 
 ##############Traincurve##############
 
 # Parsing
 parser = argparse.ArgumentParser()
-parser.add_argument('-d', '--dir', type=str, metavar='', required=True, help='Directory of stored checkpoints.')
+parser.add_argument('-d', '--dir', type=str, metavar='', required=True, help='Directory of the x_folds.')
 parser.add_argument('-i', '--identifier', type=str, metavar='', required=True, help='Outputfile identifier (folder of model used).')
 parser.add_argument('-e', '--epochs', type=int, metavar='', required=True, help='Number of epochs to plot')
 
 args = parser.parse_args()
 working_dir = os.getcwd()
-save_path = join(working_dir, args.dir, "evaluation", "plots")
-try:
-    os.makedirs(save_path)
-except FileExistsError:
-    pass
+root_path = join(working_dir, args.dir)
 
-train_data_path = join(working_dir, args.dir, "checkpoints", "train_chkpt_" + str(args.epochs) + ".tar")
+def plot_traincurve(fold_i):
+    
+    fold_path = join(args.dir, f"fold_{fold_i}")
+    
+    save_path = join(working_dir, fold_path,  "evaluation", "plots")
+    try:
+        os.makedirs(save_path)
+    except FileExistsError:
+        pass
+    
+    train_data_path = join(working_dir, fold_path, "checkpoints", "train_chkpt_" + str(args.epochs) + ".tar")
+    
+    # load in data
+    train_data = (torch.load(train_data_path, map_location='cpu')['train_loss'].numpy()[:args.epochs])
+    val_data = (torch.load(train_data_path, map_location='cpu')['val_loss'].numpy()[:args.epochs])
+    n_epochs = args.epochs
+    epoch_arr = np.arange(n_epochs)
+    
+    # losses
+    plt.figure(figsize=(15, 8))
+    plt.subplot(121)
+    plt.plot(epoch_arr, np.log10(train_data), label="Train Loss")
+    plt.plot(epoch_arr, np.log10(val_data), label="Validation Loss")
+    plt.xlabel("Epoch")
+    plt.ylabel(r"$\log_{10}\left(Cross Entropy\right)$")
+    plt.legend()
+    plt.subplot(122)
+    plt.plot(epoch_arr, train_data, label="Train Loss")
+    plt.plot(epoch_arr, val_data, label="Validation Loss")
+    plt.xlabel("Epoch")
+    plt.ylabel("Cross Entropy")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(join(save_path, "loss_curve_" + args.identifier + ".png"))
+    plt.show() 
 
-# load in data
-train_data = (torch.load(train_data_path, map_location='cpu')['train_loss'].numpy()[:args.epochs])
-val_data = (torch.load(train_data_path, map_location='cpu')['val_loss'].numpy()[:args.epochs])
-n_epochs = args.epochs
-epoch_arr = np.arange(n_epochs)
+n_files = (len([name for name in os.listdir(root_path)]))
+#print(n_files)
 
-# losses
-plt.figure(figsize=(15, 8))
-plt.subplot(121)
-plt.plot(epoch_arr, np.log10(train_data), label="Train Loss")
-plt.plot(epoch_arr, np.log10(val_data), label="Validation Loss")
-plt.xlabel("Epoch")
-plt.ylabel(r"$\log_{10}\left(Cross Entropy\right)$")
-plt.legend()
-plt.subplot(122)
-plt.plot(epoch_arr, train_data, label="Train Loss")
-plt.plot(epoch_arr, val_data, label="Validation Loss")
-plt.xlabel("Epoch")
-plt.ylabel("Cross Entropy")
-plt.legend()
-plt.tight_layout()
-plt.savefig(join(save_path, "loss_curve_" + args.identifier + ".png"))
-plt.show() 
-
-
+for fold in range(n_files):
+    plot_traincurve(fold+1)                              
+                                  
+                                  
+                                  
+                                  
+                                  

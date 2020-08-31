@@ -26,12 +26,12 @@ torch.backends.cudnn.benchmark = cuda_enabled_gpu
 # Global training parameter kwargs
 train_config = {
     'device': device,
-    'epochs': 10,   #change to ~200 
+    'epochs': 50,   #change to ~200 
     'batches_per_epoch': 1400,
     'batch_size': 64,
     'num_workers': 1,
     'output_folder': 'Runs/resnet_trained',
-    'validation_split': 0.1,
+    'validation_split': 0.25,
     'validation_indices': [],
     'prefetch_validation': False,
     'amp': False,
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     
     # initialize trainer instance
     trainer = CVTrainer(
-        folds=10, model=model, optimizer=optimizer, criterion=criterion,
+        folds=4, model=model, optimizer=optimizer, criterion=criterion,
         dataset=dataset_imgwise, scheduler=scheduler,
         train_config=train_config
     )

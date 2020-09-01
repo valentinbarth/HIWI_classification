@@ -1,6 +1,6 @@
-# SENet.pytorch
+# SENet in pytorch for medical image analysis
 
-An implementation of SENet, proposed in **Squeeze-and-Excitation Networks** by Jie Hu, Li Shen and Gang Sun, who are the winners of ILSVRC 2017 classification competition. The baseline (model implementation in pytorch) is taken as it is (for the most part) from [moskomule](https://github.com/moskomule/senet.pytorch/tree/58844943617b5215f2d3eab149735ac4a66ed393). 
+An implementation of SENet, proposed in **Squeeze-and-Excitation Networks** by Jie Hu, Li Shen and Gang Sun, who are the winners of ILSVRC 2017 classification competition. The baseline (model implementation in pytorch) is taken as it is (for the most part) from [moskomule](https://github.com/moskomule/senet.pytorch/tree/58844943617b5215f2d3eab149735ac4a66ed393). The aim of this poject is to assess the SE-module on medical images by comparing it with the plain resnet model.
 
 
 ## Pre-requirements
@@ -12,10 +12,15 @@ The codebase is tested on the following setting.
 * torchvision>=0.7
 
 You can use the files in the folder `Docker` to accomplish these settings.
+1. open terminal and navigate to the `Docker` dir
+2. to configure the rootless docker type `. config_rootless_docker.sh` in the terminal (change user and UID in the file before)
+3. build the docker image by executing `bash build_pytorch_image.sh`
+4. start a container with `bash run_pytorch.sh` (change the mounted volume and the workdir in the file before)
+5. you can check the torch verion, the torchvision verion and the availability of the GPU by running `python check_pytorch.py` and the python verion by just        typing `python --version`
 
 ## Dataset and Preprocessing
 
-The dataset is supplied by Marlen (Dr. Weiss?). The preprocessing of the data is done in the module `rearrange_dataset`. The images are cropped (further data augmentation is not performed but might be added) checked for white space (and in case of more than 50% white discarded,only background)  The dataset is split into a test (20%) and a train (80%) set. The class will be denoted in the name (and not in the folder anymore).
+The dataset is supplied by Marlen (Dr. Weiss?). The preprocessing of the data is done in the module `rearrange_dataset`. The images are cropped (further data augmentation is not performed but might be added) checked for white space (and in case of more than 50% white discarded - too much background)  The dataset is split into a test (20%) and a train (80%) set. The class will be denoted in the name (and not in the folder anymore).
 
 Before running `python rearrange_dataset.py` you should give the right datapaths in the beginning of the file:
 * `datapath` should be the path to the original data supplied by Marlen
@@ -23,9 +28,10 @@ Before running `python rearrange_dataset.py` you should give the right datapaths
 
 Some hyperparameters might be adjusted if wished (but defaults are given):
 - the number of images split for testing (when calling the function in the end)
-- the size of the cropped images (default 150x150, would not go smaller because then there is not enough structure in one sample, also when calling)
-- the threshold for discarding white images (in the `crop` function)
+- the size of the cropped images: default is 150x150, I would not go smaller because then there is not enough structure in one sample (also when calling)
+- the threshold for discarding white images might be reduced to create more data (in the `crop` function)
 
+## Training
 
 Different Resnet and SE-ResNet architectures (18, 34, 50, 101, 152/20, 32) are implemented and can be choosen.
 

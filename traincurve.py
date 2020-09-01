@@ -13,16 +13,15 @@ from senet.baseline import resnet20
 from senet.se_resnet import se_resnet20
 
 '''
-traincurve.py plottet losses von einem training. Aufruf  über:
+traincurve.py plotts losses of a training against epochs, call by:
  
 python traincurve.py -d ?top_folder/? -i ?name des outputfiles? -e checkpoint_epoche
  
-also z.B.
+e.g.
 python traincurve.py -d "Runs/se_net_trained/" -i "se_net" -e 9
  
-train_chkpt_9.tar muss es dann geben, das file wird da geladen und benutzt. Das speichert den plot unter
-                evaluation/plots
-wobei beide Verzeichnisse erstellt werden.
+train_chkpt_9.tar has to exist, the file is then loaded and used. The plot is safed at: 'evaluation/plots' 
+(both dirs are created).
 '''
 
 ##############Traincurve##############

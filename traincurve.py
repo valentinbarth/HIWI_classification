@@ -1,3 +1,15 @@
+'''
+traincurve.py plotts losses of a training against epochs, call by:
+ 
+python traincurve.py -d ?top_folder/? -i ?name des outputfiles? -e checkpoint_epoche
+ 
+e.g.
+python traincurve.py -d "Runs/se_net_trained/" -i "se_net" -e 9
+ 
+train_chkpt_9.tar has to exist, the file is then loaded and used. The plot is safed at: 'evaluation/plots' 
+(both dirs are created).
+'''
+
 import torch
 from torch.utils.data import Dataset, DataLoader
 import matplotlib.pyplot as plt
@@ -12,17 +24,7 @@ import argparse
 from senet.baseline import resnet20
 from senet.se_resnet import se_resnet20
 
-'''
-traincurve.py plotts losses of a training against epochs, call by:
- 
-python traincurve.py -d ?top_folder/? -i ?name des outputfiles? -e checkpoint_epoche
- 
-e.g.
-python traincurve.py -d "Runs/se_net_trained/" -i "se_net" -e 9
- 
-train_chkpt_9.tar has to exist, the file is then loaded and used. The plot is safed at: 'evaluation/plots' 
-(both dirs are created).
-'''
+
 
 ##############Traincurve##############
 

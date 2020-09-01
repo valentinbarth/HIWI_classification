@@ -1,3 +1,11 @@
+"""
+Call this function to train the model. Basically this script initializes the trainer with the **specific model**, optimizer, scheduler and criterion.
+These default hyperparameters are oriented on the paper (or respectively the pytorch implementation of it). 
+
+In the 'train_config' dictionary you might set the number of epochs, batch size, the **outputfolder** (relative path)
+and the split for cross validation (here you should also choose the appropriate number of folds when inizializen the trainer in line 68).
+Also take care of **choosing the right path to your data in line 51** when inizializing the dataset.
+"""
 import os
 import numpy as np
 
@@ -5,7 +13,6 @@ import torch
 import torch.optim as optim
 import torch.nn as nn
 import torch.nn.functional as F
-#from dataloading.dataset import MergedPatientDataset
 
 from Training_custom.trainer import Trainer
 from Training_custom.cvtrainer import CVTrainer

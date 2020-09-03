@@ -593,13 +593,16 @@ class Trainer(object):
         # current lr
         before_lr = self._optimizer.param_groups[0]['lr']
 
-        # use val loss if validation is performed
-        if self._val_subset:
-            val_loss = self._train_status['val_loss'][epoch].item()
-            self._scheduler.step(val_loss)
-        else:
-            tr_loss = self._train_status['train_loss'][epoch].item()
-            self._scheduler.step(tr_loss)
+        if isinstance(self._scheduler, torch.optim.lr_scheduler.StepLR):
+            self._scheduler.step()
+        else: 
+            #use val loss if validation is performed 
+            if self._val_subset:
+                val_loss = self._train_status['val_loss'][epoch].item()
+                self._scheduler.step(val_loss)
+            else:
+                tr_loss = self._train_status['train_loss'][epoch].item()
+                self._scheduler.step(tr_loss)
 
         # lr after step
         after_lr = self._optimizer.param_groups[0]['lr']

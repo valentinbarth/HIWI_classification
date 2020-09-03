@@ -1,6 +1,6 @@
 """ 
 call in shell: python evaluate.py --dir <rootdir/experiment/> --epoch <epoch to> 
-e.g. in shell: python evaluate.py --dir Runs/se_net_trained/ --epoch 9
+e.g. in shell: python evaluate.py --dir Runs/resnet_trained/ --epoch 49
 loops over all folds and calculates + stores the accuracies in a file in the root folder of the experiment
 you might change the model in line 45 from resnet to se_resnet (see comment)
 """
@@ -42,7 +42,7 @@ def evaluate(fold_i):
     #print(train_status)
     
     # model wiederherstellen
-    model = resnet20(num_classes=4)  #alternatively: se_resnet20(num_classes=4, reduction=16)
+    model = resnet20(num_classes=4)  #alternatively:     se_resnet20(num_classes=4, reduction=16)
     model.load_state_dict(train_status['model_state_dict'])
     model.eval()
     
@@ -89,10 +89,6 @@ if __name__ == "__main__":
             for string in accs:
                 f.write(string)
             
-            #for idx, string in enumerate(accs):
-             #   f.write(f"folder: {idx}, accuracy: {string} \n")
-   
-    #Acc was 0.8882
-
+            
 
 

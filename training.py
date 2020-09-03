@@ -1,5 +1,5 @@
 """
-Call this function to train the model. Basically this script initializes the trainer with the **specific model**, optimizer, scheduler and criterion.
+call in terminal 'python training.py' to train the model. Basically this script initializes the trainer with the **specified model**, optimizer, scheduler and criterion.
 These default hyperparameters are oriented on the paper (or respectively the pytorch implementation of it). 
 
 In the 'train_config' dictionary you might set the number of epochs, batch size, the **outputfolder** (relative path)
@@ -33,11 +33,11 @@ torch.backends.cudnn.benchmark = cuda_enabled_gpu
 # Global training parameter kwargs
 train_config = {
     'device': device,
-    'epochs': 50,   #change to ~200 
-    'batches_per_epoch': 1400,
+    'epochs': 100,   #change to ~200 
+    'batches_per_epoch': 700,
     'batch_size': 64,
     'num_workers': 1,
-    'output_folder': 'Runs/resnet_trained',
+    'output_folder': 'Runs/se_resnet_trained_lr1e-4',
     'validation_split': 0.25,
     'validation_indices': [],
     'prefetch_validation': False,
@@ -51,15 +51,16 @@ if __name__ == "__main__":
     dataset_imgwise = Training_custom.load_dataset.imagewise_dataset(datadir = '/home/vbarth/HIWI/classificationDataValentin/mixed_cropped/train')
     
     
-    # set model, optimizer and loss criterion
-    model = resnet20(num_classes=4)  # choose se_resnet20(num_classes=4, reduction=16) or resnet20(num_classes=4) for example
+    # set model
+    model = se_resnet20(num_classes=4, reduction=16)  # choose se_resnet20(num_classes=4, reduction=16) or resnet20(num_classes=4) for example
 
     # optimizer
     #optimizer = optim.AdamW(model.parameters(), lr=5e-4, weight_decay=1e-3)
-    optimizer = optim.SGD(model.parameters(),lr=1e-1, momentum=0.9, weight_decay=1e-4)
+    optimizer = optim.SGD(model.parameters(),lr=1e-4, momentum=0.9, weight_decay=1e-4)
+    
     # lr scheduler
     #scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=500, factor=0.2, min_lr=1e-6)
-    scheduler = optim.lr_scheduler.StepLR(optimizer, 80, 0.1)
+    scheduler = optim.lr_scheduler.StepLR(optimizer, 30, 0.1)
     
     # loss
     criterion = F.cross_entropy

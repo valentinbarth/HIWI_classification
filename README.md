@@ -42,7 +42,7 @@ These default hyperparameters are oriented on the paper (or respectively the pyt
 
 In the 'train_config' dictionary you might set the number of epochs, batch size, the **outputfolder** (relative path)
 and the split for cross validation (here you should also choose the appropriate number of folds when inizializen the trainer in line 68).
-Also take care of **choosing the right path to your data**(in line 51) when inizializing the dataset.
+Also take care of **giving the right path to your data**(in line 51) when inizializing the dataset.
 
 
 

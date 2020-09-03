@@ -33,16 +33,16 @@ Some hyperparameters might be adjusted if wished (but defaults are given):
 
 ## Training
 
-Different Resnet and SE-ResNet architectures (18, 34, 50, 101, 152/20, 32) are implemented and can be choosen(see `senet/baseline.py` and `senet/se_resnet.py`.
+Different Resnet and SE-ResNet architectures (18, 34, 50, 101, 152/20, 32) are implemented and can be choosen(see `senet/baseline.py` and `senet/se_resnet.py`).
 The code was tested on the smallest model resnet 18 (in the code called se_resnet20 or resnet20) for runtime reasons. 
 
 Call in terminal `python training.py` to train the model. 
-Basically this script initializes the trainer with the **specified model**, optimizer, scheduler and criterion.
+Basically this script initializes the trainer with the **specified model**(in line 55), optimizer, scheduler and criterion.
 These default hyperparameters are oriented on the paper (or respectively the pytorch implementation of it). 
 
 In the 'train_config' dictionary you might set the number of epochs, batch size, the **outputfolder** (relative path)
 and the split for cross validation (here you should also choose the appropriate number of folds when inizializen the trainer in line 68).
-Also take care of **choosing the right path to your data in line 51** when inizializing the dataset.
+Also take care of **choosing the right path to your data**(in line 51) when inizializing the dataset.
 
 
 

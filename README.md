@@ -58,14 +58,12 @@ The training produces folders with checkpoints to load the trained model from an
 
 ## Evaluation
 
-There are two scripts for evaluation: `traincurve.py` and `evaluate.py`.
+There are two scripts for evaluation: `traincurve.py` and `evaluate.py`:
 
 **Traincurve.py** plotts losses of a training against epochs, call by:
  
-`python traincurve.py -d <top_folder/> -i <name des outputfiles> -e checkpoint_epoche`
-
-for example:
-`python traincurve.py -d "Runs/se_resnet_trained_final/" -i "se_resnet_final" -e 149`
+`python traincurve.py -d <top_folder/> -i <name des outputfiles> -e checkpoint_epoche` 
+for example: `python traincurve.py -d "Runs/se_resnet_trained_final/" -i "se_resnet_final" -e 149`
  
 train_chkpt_149.tar has to exist, the file is then loaded and used. The plot is safed at: 'evaluation/plots' 
 (both dirs are created).
@@ -73,7 +71,6 @@ train_chkpt_149.tar has to exist, the file is then loaded and used. The plot is 
 **evaluatie.py** calculates the accuracy, call in shell: 
 
 `python evaluate.py --dir <rootdir/experiment/> --epoch <epoch to> `
-
 e.g. in shell: `python evaluate.py --dir Runs/se_resnet_trained/ --epoch 149`
 
 loops over all folds and calculates + stores the accuracies in a file in the root folder of the experiment

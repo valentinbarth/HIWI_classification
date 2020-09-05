@@ -44,6 +44,37 @@ In the 'train_config' dictionary you might set the number of epochs, batch size,
 and the split for cross validation (here you should also choose the appropriate number of folds when inizializen the trainer in line 68).
 Also take care of **giving the right path to your data**(in line 51) when inizializing the dataset.
 
+The final version of the training was performed with the following settings:
+number of epochs: 150
+batches per epoch: 700
+batchsize: 64
+optimizer: SGD with initial learning rate of 0.0001 and a reduction of 0.1 every 40 eepochs
+loss: cross entropy
+
+The evaluation is performed on a 4-fold cross validation (each time 25% of the trainset is splitted for validation)
+One trainig on the medphys410 took about 24h with those settings.
+
+The training produces folders with checkpoints to load the trained model from and a log file, both within the folder of the experiment. 
+
+## Evaluation
+
+There are two scripts for evaluation: `traincurve.py` and `evaluate.py`.
+
+**Traincurve.py** plotts losses of a training against epochs, call by:
+ 
+`python traincurve.py -d <top_folder/> -i <name des outputfiles> -e checkpoint_epoche`
+for example:
+`python traincurve.py -d "Runs/se_resnet_trained_final/" -i "se_resnet_final" -e 149`
+ 
+train_chkpt_149.tar has to exist, the file is then loaded and used. The plot is safed at: 'evaluation/plots' 
+(both dirs are created).
+
+**evaluatie.py** calculates the accuracy.
+
+call in shell: `python evaluate.py --dir <rootdir/experiment/> --epoch <epoch to> `
+e.g. in shell: `python evaluate.py --dir Runs/se_resnet_trained/ --epoch 149`
+loops over all folds and calculates + stores the accuracies in a file in the root folder of the experiment
+you might change the model in line 45 from resnet to se_resnet (see comment)
 
 
 ## Result

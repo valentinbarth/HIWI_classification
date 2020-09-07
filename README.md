@@ -82,6 +82,8 @@ you might change the model in line 45 from resnet to se_resnet (see comment)
 with the configuration from above the following results are obtained. There is no significant difference between the two networks.
 appart from that: the training curve shows that the learning rate was probably reduced too early (The curve flattens significantly at epoch 40)
 
+**Case 1**
+
 without SE-module:
 
 folder: 1, accuracy: 0.8867491079720417 
@@ -107,7 +109,7 @@ better results have been obtained in an earlier run without using a learning rat
 In this case though, the use of the SE-module even worsens the results (not dramatic though). 
 
 
-without reducing the learning rate:
+**Case 2:** without reducing the learning rate
 
 without SE-module:
 
@@ -129,7 +131,9 @@ folder: 3, accuracy: 0.8962803656092673
 
 folder: 4, accuracy: 0.8983821301138863 
 
-hughe differences have shown up in a previous training with a much higher initial learning rate (0.1). The model without SE-module struggles tremendously and lacks robustness, while the other model performs well:
+hughe differences have shown up in a previous training with a much higher initial learning rate (0.1). The model without SE-module struggles tremendously and lacks robustness (high variance of accuracies), while the other model performs well:
+
+**Case 3:** (too) high learning rate
 
 with SE-module:
 

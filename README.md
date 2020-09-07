@@ -79,50 +79,54 @@ you might change the model in line 45 from resnet to se_resnet (see comment)
 
 ## Result
 
-### SE-ResNet20/Cifar10
+### Final results:
 
-```
-python cifar.py [--baseline]
-```
+with the configuration from above the following results are obtained. There is no significant difference between the two networks.
+appart from that: the training curve shows that the learning rate was probably reduced too early (The curve flattens significantly at epoch 40)
 
-Note that the CIFAR-10 dataset expected to be under `~/.torch/data`.
+without SE-module:
+folder: 1, accuracy: 0.8867491079720417 
+folder: 2, accuracy: 0.8888019942323672 
+folder: 3, accuracy: 0.8866024732391613 
+folder: 4, accuracy: 0.8881176988122587 
 
-|                  | ResNet20       | SE-ResNet20 (reduction 4 or 8)    |
-|:-------------    | :------------- | :------------- |
-|max. test accuracy|  92%           | 93%            |
-
-### SE-ResNet50/ImageNet
-
-```
-python [-m torch.distributed.launch --nproc_per_node=${NUM_GPUS}] imagenet.py
-```
-
-The option [-m ...] is for distributed training. Note that the Imagenet dataset is expected to be under `~/.torch/data` or specified as `IMAGENET_ROOT=${PATH_TO_IMAGENET}`.
-
-*The initial learning rate and mini-batch size are different from the original version because of my computational resource* .
-
-|                  | ResNet         | SE-ResNet      |
-|:-------------    | :------------- | :------------- |
-|max. test accuracy(top1)|  76.15 %(*)             | 77.06% (**)          |
+with SE-module:
+folder: 1, accuracy: 0.8850383694217704 
+folder: 2, accuracy: 0.8843540740016619 
+folder: 3, accuracy: 0.8831321178943252 
+folder: 4, accuracy: 0.8847450999560096
 
 
-+ (*): [ResNet-50 in torchvision](https://pytorch.org/docs/stable/torchvision/models.html)
+better results have been obtained in an earlier run without using a learning rate scheduler (no learning rate reduction).
+In this case though, the use of the SE-module even worsens the results (not dramatic though). 
 
-+ (**): When using `imagenet.py` with the `--distributed` setting on 8 GPUs. The weight is [available](https://github.com/moskomule/senet.pytorch/releases/download/archive/seresnet50-60a8950a85b2b.pkl).
 
-```python
-# !wget https://github.com/moskomule/senet.pytorch/releases/download/archive/seresnet50-60a8950a85b2b.pkl
+without reducing the learning rate:
 
-senet = se_resnet50(num_classes=1000)
-senet.load_state_dict(torch.load("seresnet50-60a8950a85b2b.pkl"))
-```
+without SE-module:
+folder: 1, accuracy: 0.9005327728627988 
+folder: 2, accuracy: 0.8948628965247568 
+folder: 3, accuracy: 0.9013148247714942 
+folder: 4, accuracy: 0.9006305293513857 
 
-## Contribution
+with SE-module:
+folder: 1, accuracy: 0.8971112957622562 
+folder: 2, accuracy: 0.8964758785864412 
+folder: 3, accuracy: 0.8962803656092673 
+folder: 4, accuracy: 0.8983821301138863 
 
-I cannot maintain this repository actively, but any contributions are welcome. Feel free to send PRs and issues.
 
+Notes:
+
+* I assume that the optimal configuration in terms of initial learning rate and learning rate step has just not been found yet. 
+* There are also other measures beside accuracy (e.g. precision, recall, ...) that should to be considered in order to assess the performance of the model.
+* This task (classification of 4 classes) is not very difficult for a neural network and it might be possible that the gain of the SE-module is stronger in harder tasks.
+
+  |
 ## References
 
 [paper](https://arxiv.org/pdf/1709.01507.pdf)
 
 [authors' Caffe implementation](https://github.com/hujie-frank/SENet)
+
+[pytorch implemenation (base of this repo)](https://github.com/moskomule/senet.pytorch/tree/58844943617b5215f2d3eab149735ac4a66ed393)

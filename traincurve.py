@@ -4,9 +4,9 @@ traincurve.py plotts losses of a training against epochs, call by:
 python traincurve.py -d ?top_folder/? -i ?name des outputfiles? -e checkpoint_epoche
  
 e.g.
-python traincurve.py -d "Runs/resnet_trained/" -i "resnet" -e 49
+python traincurve.py -d "Runs/se_resnet_trained_final/" -i "se_resnet_final" -e 149
  
-train_chkpt_49.tar has to exist, the file is then loaded and used. The plot is safed at: 'evaluation/plots' 
+train_chkpt_149.tar has to exist, the file is then loaded and used. The plot is safed at: 'evaluation/plots' 
 (both dirs are created).
 '''
 

@@ -33,11 +33,11 @@ torch.backends.cudnn.benchmark = cuda_enabled_gpu
 # Global training parameter kwargs
 train_config = {
     'device': device,
-    'epochs': 100,   #change to ~200 
+    'epochs': 150,   #change to ~200 
     'batches_per_epoch': 700,
     'batch_size': 64,
     'num_workers': 1,
-    'output_folder': 'Runs/se_resnet_trained_lr1e-4',
+    'output_folder': 'Runs/se_resnet_reduction8',
     'validation_split': 0.25,
     'validation_indices': [],
     'prefetch_validation': False,
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     
     
     # set model
-    model = se_resnet20(num_classes=4, reduction=16)  # choose se_resnet20(num_classes=4, reduction=16) or resnet20(num_classes=4) for example
+    model = se_resnet20(num_classes=4, reduction=8)  # choose se_resnet20(num_classes=4, reduction=16) or resnet20(num_classes=4) for example
 
     # optimizer
     #optimizer = optim.AdamW(model.parameters(), lr=5e-4, weight_decay=1e-3)
@@ -60,7 +60,7 @@ if __name__ == "__main__":
     
     # lr scheduler
     #scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=500, factor=0.2, min_lr=1e-6)
-    scheduler = optim.lr_scheduler.StepLR(optimizer, 30, 0.1)
+    scheduler = optim.lr_scheduler.StepLR(optimizer, 40, 0.1)
     
     # loss
     criterion = F.cross_entropy

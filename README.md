@@ -79,6 +79,8 @@ you might change the model in line 45 from resnet to se_resnet (see comment)
 
 ## Result
 
+All trained models/results/plots can be found in the folder `Runs`
+
 with the configuration from above the following results are obtained. There is no significant difference between the two networks.
 appart from that: the training curve shows that the learning rate was probably reduced too early (The curve flattens significantly at epoch 40)
 
@@ -161,6 +163,8 @@ folder: 4, accuracy: 0.7123515323329586
 * There are also other measures beside accuracy (e.g. precision, recall, ...) that should to be considered in order to assess the performance of the model.
 * This task (classification of 4 classes) is not very difficult for a neural network and it might be possible that the gain of the SE-module is stronger in harder tasks.
 * SE-module seems to be increase the robustness and overall performance in unfavorable settings of hyperparameters.
+* There might be investigated different settings of the reduction rate
+
 
 
 ## References

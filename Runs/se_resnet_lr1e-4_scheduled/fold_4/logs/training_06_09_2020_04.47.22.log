@@ -1,0 +1,384 @@
+2020-09-06 04:47:22,493 | CVTrainer-INFO: Successfully initialized.
+2020-09-06 04:47:22,494 | CVTrainer-INFO: Model: CifarSEResNet(
+  (conv1): Conv2d(3, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu): ReLU(inplace=True)
+  (layer1): Sequential(
+    (0): CifarSEBasicBlock(
+      (conv1): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (se): SELayer(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=16, out_features=1, bias=False)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=1, out_features=16, bias=False)
+          (3): Sigmoid()
+        )
+      )
+    )
+    (1): CifarSEBasicBlock(
+      (conv1): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (se): SELayer(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=16, out_features=1, bias=False)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=1, out_features=16, bias=False)
+          (3): Sigmoid()
+        )
+      )
+    )
+    (2): CifarSEBasicBlock(
+      (conv1): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (se): SELayer(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=16, out_features=1, bias=False)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=1, out_features=16, bias=False)
+          (3): Sigmoid()
+        )
+      )
+    )
+  )
+  (layer2): Sequential(
+    (0): CifarSEBasicBlock(
+      (conv1): Conv2d(16, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (se): SELayer(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=32, out_features=2, bias=False)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=2, out_features=32, bias=False)
+          (3): Sigmoid()
+        )
+      )
+      (downsample): Sequential(
+        (0): Conv2d(16, 32, kernel_size=(1, 1), stride=(2, 2), bias=False)
+        (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): CifarSEBasicBlock(
+      (conv1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (se): SELayer(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=32, out_features=2, bias=False)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=2, out_features=32, bias=False)
+          (3): Sigmoid()
+        )
+      )
+    )
+    (2): CifarSEBasicBlock(
+      (conv1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (se): SELayer(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=32, out_features=2, bias=False)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=2, out_features=32, bias=False)
+          (3): Sigmoid()
+        )
+      )
+    )
+  )
+  (layer3): Sequential(
+    (0): CifarSEBasicBlock(
+      (conv1): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (se): SELayer(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=64, out_features=4, bias=False)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=4, out_features=64, bias=False)
+          (3): Sigmoid()
+        )
+      )
+      (downsample): Sequential(
+        (0): Conv2d(32, 64, kernel_size=(1, 1), stride=(2, 2), bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): CifarSEBasicBlock(
+      (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (se): SELayer(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=64, out_features=4, bias=False)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=4, out_features=64, bias=False)
+          (3): Sigmoid()
+        )
+      )
+    )
+    (2): CifarSEBasicBlock(
+      (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (se): SELayer(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=64, out_features=4, bias=False)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=4, out_features=64, bias=False)
+          (3): Sigmoid()
+        )
+      )
+    )
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc): Linear(in_features=64, out_features=4, bias=True)
+)
+2020-09-06 04:47:22,494 | CVTrainer-INFO: Optimizer: SGD (
+Parameter Group 0
+    dampening: 0
+    initial_lr: 0.0001
+    lr: 0.0001
+    momentum: 0.9
+    nesterov: False
+    weight_decay: 0.0001
+)
+2020-09-06 04:47:22,494 | CVTrainer-INFO: Criterion: <function cross_entropy at 0x7f93ac7149d8>
+2020-09-06 04:47:22,976 | CVTrainer-INFO: Number of total data: 81718
+2020-09-06 04:47:22,976 | CVTrainer-INFO: ##### Training Configuration #####
+2020-09-06 04:47:22,976 | CVTrainer-INFO: device ---> cuda
+2020-09-06 04:47:22,976 | CVTrainer-INFO: epochs ---> 150
+2020-09-06 04:47:22,976 | CVTrainer-INFO: batches_per_epoch ---> 700
+2020-09-06 04:47:22,976 | CVTrainer-INFO: batch_size ---> 64
+2020-09-06 04:47:22,976 | CVTrainer-INFO: num_workers ---> 1
+2020-09-06 04:47:22,976 | CVTrainer-INFO: output_folder ---> Runs/se_resnet_trained_final/fold_4
+2020-09-06 04:47:22,976 | CVTrainer-INFO: validation_split ---> 0.25
+2020-09-06 04:47:22,976 | CVTrainer-INFO: validation_indices --->  [40560, 42790, 16084 ... 71409, 15785, 20232]
+2020-09-06 04:47:22,977 | CVTrainer-INFO: prefetch_validation ---> False
+2020-09-06 04:47:22,977 | CVTrainer-INFO: amp ---> False
+2020-09-06 04:47:22,977 | CVTrainer-INFO: log_level ---> INFO
+2020-09-06 04:47:22,977 | CVTrainer-INFO: early_stopping_patience ---> 0
+2020-09-06 04:47:22,977 | CVTrainer-INFO: finished_fold ---> False
+2020-09-06 04:47:22,977 | CVTrainer-INFO: ##### Training Configuration #####
+2020-09-06 04:47:22,977 | CVTrainer-INFO: Using GPU "TITAN Xp COLLECTORS EDITION" for training.
+2020-09-06 04:47:22,977 | CVTrainer-INFO: Starting training.
+2020-09-06 04:47:22,977 | CVTrainer-INFO: Automatic Mixed Precision is DISABLED
+2020-09-06 04:47:22,977 | CVTrainer-INFO: Starting epoch 0
+2020-09-06 04:51:44,052 | CVTrainer-INFO: Validating ...
+2020-09-06 04:52:14,609 | CVTrainer-INFO: Epoch 0 finished --> Elapsed Time: 291.63114146422595s
+2020-09-06 04:52:14,609 | CVTrainer-INFO: Avg. train loss: 1.2565529346466064
+2020-09-06 04:52:14,609 | CVTrainer-INFO: Avg. validation loss: 1.045929193496704
+2020-09-06 04:52:14,610 | CVTrainer-INFO: Saving checkpoint ...
+2020-09-06 04:52:14,626 | CVTrainer-INFO: Starting epoch 1
+2020-09-06 04:56:35,689 | CVTrainer-INFO: Validating ...
+2020-09-06 04:57:06,180 | CVTrainer-INFO: Epoch 1 finished --> Elapsed Time: 291.55387555155903s
+2020-09-06 04:57:06,181 | CVTrainer-INFO: Avg. train loss: 0.8806890249252319
+2020-09-06 04:57:06,181 | CVTrainer-INFO: Avg. validation loss: 0.7201413512229919
+2020-09-06 04:57:06,181 | CVTrainer-INFO: Starting epoch 2
+2020-09-06 05:01:27,409 | CVTrainer-INFO: Validating ...
+2020-09-06 05:01:57,883 | CVTrainer-INFO: Epoch 2 finished --> Elapsed Time: 291.70186926517636s
+2020-09-06 05:01:57,883 | CVTrainer-INFO: Avg. train loss: 0.6561898589134216
+2020-09-06 05:01:57,883 | CVTrainer-INFO: Avg. validation loss: 0.5726178288459778
+2020-09-06 05:01:57,884 | CVTrainer-INFO: Starting epoch 3
+2020-09-06 05:06:18,982 | CVTrainer-INFO: Validating ...
+2020-09-06 05:06:49,479 | CVTrainer-INFO: Epoch 3 finished --> Elapsed Time: 291.5957267768681s
+2020-09-06 05:06:49,480 | CVTrainer-INFO: Avg. train loss: 0.5428236126899719
+2020-09-06 05:06:49,480 | CVTrainer-INFO: Avg. validation loss: 0.48803967237472534
+2020-09-06 05:06:49,480 | CVTrainer-INFO: Starting epoch 4
+2020-09-06 05:11:10,353 | CVTrainer-INFO: Validating ...
+2020-09-06 05:11:40,803 | CVTrainer-INFO: Epoch 4 finished --> Elapsed Time: 291.3229654068127s
+2020-09-06 05:11:40,804 | CVTrainer-INFO: Avg. train loss: 0.48197314143180847
+2020-09-06 05:11:40,804 | CVTrainer-INFO: Avg. validation loss: 0.4386506974697113
+2020-09-06 05:11:40,804 | CVTrainer-INFO: Starting epoch 5
+2020-09-06 05:16:01,247 | CVTrainer-INFO: Validating ...
+2020-09-06 05:16:30,620 | CVTrainer-INFO: Epoch 5 finished --> Elapsed Time: 289.81477401033044s
+2020-09-06 05:16:30,620 | CVTrainer-INFO: Avg. train loss: 0.43843990564346313
+2020-09-06 05:16:30,620 | CVTrainer-INFO: Avg. validation loss: 0.3958093225955963
+2020-09-06 05:16:30,621 | CVTrainer-INFO: Starting epoch 6
+2020-09-06 05:20:50,705 | CVTrainer-INFO: Validating ...
+2020-09-06 05:21:21,031 | CVTrainer-INFO: Epoch 6 finished --> Elapsed Time: 290.41021555569023s
+2020-09-06 05:21:21,032 | CVTrainer-INFO: Avg. train loss: 0.40456312894821167
+2020-09-06 05:21:21,032 | CVTrainer-INFO: Avg. validation loss: 0.36490398645401
+2020-09-06 05:21:21,032 | CVTrainer-INFO: Starting epoch 7
+2020-09-06 05:25:40,878 | CVTrainer-INFO: Validating ...
+2020-09-06 05:26:11,260 | CVTrainer-INFO: Epoch 7 finished --> Elapsed Time: 290.22786968946457s
+2020-09-06 05:26:11,261 | CVTrainer-INFO: Avg. train loss: 0.37544119358062744
+2020-09-06 05:26:11,261 | CVTrainer-INFO: Avg. validation loss: 0.3427300751209259
+2020-09-06 05:26:11,261 | CVTrainer-INFO: Starting epoch 8
+2020-09-06 05:30:31,041 | CVTrainer-INFO: Validating ...
+2020-09-06 05:31:01,432 | CVTrainer-INFO: Epoch 8 finished --> Elapsed Time: 290.1703018024564s
+2020-09-06 05:31:01,432 | CVTrainer-INFO: Avg. train loss: 0.3583986461162567
+2020-09-06 05:31:01,432 | CVTrainer-INFO: Avg. validation loss: 0.3259858191013336
+2020-09-06 05:31:01,432 | CVTrainer-INFO: Starting epoch 9
+2020-09-06 05:35:21,057 | CVTrainer-INFO: Validating ...
+2020-09-06 05:35:51,429 | CVTrainer-INFO: Epoch 9 finished --> Elapsed Time: 289.99600054416806s
+2020-09-06 05:35:51,429 | CVTrainer-INFO: Avg. train loss: 0.34299230575561523
+2020-09-06 05:35:51,429 | CVTrainer-INFO: Avg. validation loss: 0.3166845440864563
+2020-09-06 05:35:51,429 | CVTrainer-INFO: Starting epoch 10
+2020-09-06 05:40:11,672 | CVTrainer-INFO: Validating ...
+2020-09-06 05:40:42,140 | CVTrainer-INFO: Epoch 10 finished --> Elapsed Time: 290.7104947771877s
+2020-09-06 05:40:42,141 | CVTrainer-INFO: Avg. train loss: 0.3344143331050873
+2020-09-06 05:40:42,141 | CVTrainer-INFO: Avg. validation loss: 0.3091137409210205
+2020-09-06 05:40:42,141 | CVTrainer-INFO: Starting epoch 11
+2020-09-06 05:45:02,850 | CVTrainer-INFO: Validating ...
+2020-09-06 05:45:32,892 | CVTrainer-INFO: Epoch 11 finished --> Elapsed Time: 290.75099404063076s
+2020-09-06 05:45:32,893 | CVTrainer-INFO: Avg. train loss: 0.32502481341362
+2020-09-06 05:45:32,893 | CVTrainer-INFO: Avg. validation loss: 0.30242258310317993
+2020-09-06 05:45:32,893 | CVTrainer-INFO: Starting epoch 12
+2020-09-06 05:49:53,487 | CVTrainer-INFO: Validating ...
+2020-09-06 05:50:23,187 | CVTrainer-INFO: Epoch 12 finished --> Elapsed Time: 290.2936126869172s
+2020-09-06 05:50:23,187 | CVTrainer-INFO: Avg. train loss: 0.3176119029521942
+2020-09-06 05:50:23,187 | CVTrainer-INFO: Avg. validation loss: 0.2955164611339569
+2020-09-06 05:50:23,188 | CVTrainer-INFO: Starting epoch 13
+2020-09-06 05:54:44,347 | CVTrainer-INFO: Validating ...
+2020-09-06 05:55:14,793 | CVTrainer-INFO: Epoch 13 finished --> Elapsed Time: 291.605328315869s
+2020-09-06 05:55:14,793 | CVTrainer-INFO: Avg. train loss: 0.3102305233478546
+2020-09-06 05:55:14,794 | CVTrainer-INFO: Avg. validation loss: 0.2952418923377991
+2020-09-06 05:55:14,794 | CVTrainer-INFO: Starting epoch 14
+2020-09-06 05:59:35,556 | CVTrainer-INFO: Validating ...
+2020-09-06 06:00:05,970 | CVTrainer-INFO: Epoch 14 finished --> Elapsed Time: 291.1755551835522s
+2020-09-06 06:00:05,971 | CVTrainer-INFO: Avg. train loss: 0.30653196573257446
+2020-09-06 06:00:05,971 | CVTrainer-INFO: Avg. validation loss: 0.2896972596645355
+2020-09-06 06:00:05,971 | CVTrainer-INFO: Starting epoch 15
+2020-09-06 06:04:27,031 | CVTrainer-INFO: Validating ...
+2020-09-06 06:04:57,508 | CVTrainer-INFO: Epoch 15 finished --> Elapsed Time: 291.53704694472253s
+2020-09-06 06:04:57,509 | CVTrainer-INFO: Avg. train loss: 0.30153584480285645
+2020-09-06 06:04:57,509 | CVTrainer-INFO: Avg. validation loss: 0.28548938035964966
+2020-09-06 06:04:57,509 | CVTrainer-INFO: Saving checkpoint ...
+2020-09-06 06:04:57,526 | CVTrainer-INFO: Starting epoch 16
+2020-09-06 06:09:18,430 | CVTrainer-INFO: Validating ...
+2020-09-06 06:09:49,011 | CVTrainer-INFO: Epoch 16 finished --> Elapsed Time: 291.4846684085205s
+2020-09-06 06:09:49,011 | CVTrainer-INFO: Avg. train loss: 0.29974910616874695
+2020-09-06 06:09:49,012 | CVTrainer-INFO: Avg. validation loss: 0.2828657031059265
+2020-09-06 06:09:49,012 | CVTrainer-INFO: Starting epoch 17
+2020-09-06 06:14:10,069 | CVTrainer-INFO: Validating ...
+2020-09-06 06:14:40,611 | CVTrainer-INFO: Epoch 17 finished --> Elapsed Time: 291.5991730419919s
+2020-09-06 06:14:40,612 | CVTrainer-INFO: Avg. train loss: 0.29304322600364685
+2020-09-06 06:14:40,612 | CVTrainer-INFO: Avg. validation loss: 0.27927589416503906
+2020-09-06 06:14:40,612 | CVTrainer-INFO: Starting epoch 18
+2020-09-06 06:19:01,598 | CVTrainer-INFO: Validating ...
+2020-09-06 06:19:31,289 | CVTrainer-INFO: Epoch 18 finished --> Elapsed Time: 290.6761717023328s
+2020-09-06 06:19:31,289 | CVTrainer-INFO: Avg. train loss: 0.2902939021587372
+2020-09-06 06:19:31,289 | CVTrainer-INFO: Avg. validation loss: 0.27661433815956116
+2020-09-06 06:19:31,289 | CVTrainer-INFO: Starting epoch 19
+2020-09-06 06:23:52,209 | CVTrainer-INFO: Validating ...
+2020-09-06 06:24:22,436 | CVTrainer-INFO: Epoch 19 finished --> Elapsed Time: 291.14666259568185s
+2020-09-06 06:24:22,437 | CVTrainer-INFO: Avg. train loss: 0.2883716821670532
+2020-09-06 06:24:22,437 | CVTrainer-INFO: Avg. validation loss: 0.27334845066070557
+2020-09-06 06:24:22,437 | CVTrainer-INFO: Starting epoch 20
+2020-09-06 06:28:43,574 | CVTrainer-INFO: Validating ...
+2020-09-06 06:29:14,093 | CVTrainer-INFO: Epoch 20 finished --> Elapsed Time: 291.6556573519483s
+2020-09-06 06:29:14,094 | CVTrainer-INFO: Avg. train loss: 0.2857992351055145
+2020-09-06 06:29:14,094 | CVTrainer-INFO: Avg. validation loss: 0.2701689600944519
+2020-09-06 06:29:14,094 | CVTrainer-INFO: Starting epoch 21
+2020-09-06 06:33:35,312 | CVTrainer-INFO: Validating ...
+2020-09-06 06:34:05,723 | CVTrainer-INFO: Epoch 21 finished --> Elapsed Time: 291.62835938483477s
+2020-09-06 06:34:05,723 | CVTrainer-INFO: Avg. train loss: 0.28662973642349243
+2020-09-06 06:34:05,724 | CVTrainer-INFO: Avg. validation loss: 0.26820534467697144
+2020-09-06 06:34:05,724 | CVTrainer-INFO: Starting epoch 22
+2020-09-06 06:38:26,432 | CVTrainer-INFO: Validating ...
+2020-09-06 06:38:56,908 | CVTrainer-INFO: Epoch 22 finished --> Elapsed Time: 291.18379168305546s
+2020-09-06 06:38:56,908 | CVTrainer-INFO: Avg. train loss: 0.2790023386478424
+2020-09-06 06:38:56,908 | CVTrainer-INFO: Avg. validation loss: 0.2705763578414917
+2020-09-06 06:38:56,909 | CVTrainer-INFO: Starting epoch 23
+2020-09-06 06:43:17,506 | CVTrainer-INFO: Validating ...
+2020-09-06 06:43:47,752 | CVTrainer-INFO: Epoch 23 finished --> Elapsed Time: 290.8431768082082s
+2020-09-06 06:43:47,752 | CVTrainer-INFO: Avg. train loss: 0.2746756672859192
+2020-09-06 06:43:47,753 | CVTrainer-INFO: Avg. validation loss: 0.263603150844574
+2020-09-06 06:43:47,753 | CVTrainer-INFO: Starting epoch 24
+2020-09-06 06:48:07,889 | CVTrainer-INFO: Validating ...
+2020-09-06 06:48:38,415 | CVTrainer-INFO: Epoch 24 finished --> Elapsed Time: 290.66192060522735s
+2020-09-06 06:48:38,416 | CVTrainer-INFO: Avg. train loss: 0.2758147716522217
+2020-09-06 06:48:38,416 | CVTrainer-INFO: Avg. validation loss: 0.26191645860671997
+2020-09-06 06:48:38,416 | CVTrainer-INFO: Starting epoch 25
+2020-09-06 06:52:58,097 | CVTrainer-INFO: Validating ...
+2020-09-06 06:53:27,585 | CVTrainer-INFO: Epoch 25 finished --> Elapsed Time: 289.1685300944373s
+2020-09-06 06:53:27,585 | CVTrainer-INFO: Avg. train loss: 0.2734902501106262
+2020-09-06 06:53:27,585 | CVTrainer-INFO: Avg. validation loss: 0.25981542468070984
+2020-09-06 06:53:27,586 | CVTrainer-INFO: Starting epoch 26
+2020-09-06 06:57:47,209 | CVTrainer-INFO: Validating ...
+2020-09-06 06:58:17,604 | CVTrainer-INFO: Epoch 26 finished --> Elapsed Time: 290.01822370290756s
+2020-09-06 06:58:17,605 | CVTrainer-INFO: Avg. train loss: 0.2694511115550995
+2020-09-06 06:58:17,605 | CVTrainer-INFO: Avg. validation loss: 0.2590962052345276
+2020-09-06 06:58:17,605 | CVTrainer-INFO: Starting epoch 27
+2020-09-06 07:02:38,046 | CVTrainer-INFO: Validating ...
+2020-09-06 07:03:08,550 | CVTrainer-INFO: Epoch 27 finished --> Elapsed Time: 290.9442416196689s
+2020-09-06 07:03:08,550 | CVTrainer-INFO: Avg. train loss: 0.26698213815689087
+2020-09-06 07:03:08,550 | CVTrainer-INFO: Avg. validation loss: 0.2557036876678467
+2020-09-06 07:03:08,551 | CVTrainer-INFO: Starting epoch 28
+2020-09-06 07:07:28,876 | CVTrainer-INFO: Validating ...
+2020-09-06 07:07:59,302 | CVTrainer-INFO: Epoch 28 finished --> Elapsed Time: 290.75107901822776s
+2020-09-06 07:07:59,302 | CVTrainer-INFO: Avg. train loss: 0.26362892985343933
+2020-09-06 07:07:59,303 | CVTrainer-INFO: Avg. validation loss: 0.25646525621414185
+2020-09-06 07:07:59,303 | CVTrainer-INFO: Starting epoch 29
+2020-09-06 07:12:19,598 | CVTrainer-INFO: Validating ...
+2020-09-06 07:12:50,143 | CVTrainer-INFO: Epoch 29 finished --> Elapsed Time: 290.83946825005114s
+2020-09-06 07:12:50,143 | CVTrainer-INFO: Avg. train loss: 0.2622063457965851
+2020-09-06 07:12:50,143 | CVTrainer-INFO: Avg. validation loss: 0.2510191798210144
+2020-09-06 07:12:50,143 | CVTrainer-INFO: Starting epoch 30
+2020-09-06 07:17:10,570 | CVTrainer-INFO: Validating ...
+2020-09-06 07:17:41,111 | CVTrainer-INFO: Epoch 30 finished --> Elapsed Time: 290.9670590432361s
+2020-09-06 07:17:41,111 | CVTrainer-INFO: Avg. train loss: 0.2584415078163147
+2020-09-06 07:17:41,111 | CVTrainer-INFO: Avg. validation loss: 0.250923216342926
+2020-09-06 07:17:41,111 | CVTrainer-INFO: Saving checkpoint ...
+2020-09-06 07:17:41,122 | CVTrainer-INFO: Starting epoch 31
+2020-09-06 07:22:02,115 | CVTrainer-INFO: Validating ...
+2020-09-06 07:22:32,146 | CVTrainer-INFO: Epoch 31 finished --> Elapsed Time: 291.0239218622446s
+2020-09-06 07:22:32,146 | CVTrainer-INFO: Avg. train loss: 0.2579939365386963
+2020-09-06 07:22:32,146 | CVTrainer-INFO: Avg. validation loss: 0.2482825219631195
+2020-09-06 07:22:32,147 | CVTrainer-INFO: Starting epoch 32
+2020-09-06 07:26:53,045 | CVTrainer-INFO: Validating ...
+2020-09-06 07:27:22,951 | CVTrainer-INFO: Epoch 32 finished --> Elapsed Time: 290.80408032331616s
+2020-09-06 07:27:22,951 | CVTrainer-INFO: Avg. train loss: 0.25511297583580017
+2020-09-06 07:27:22,952 | CVTrainer-INFO: Avg. validation loss: 0.2466679811477661
+2020-09-06 07:27:22,952 | CVTrainer-INFO: Starting epoch 33
+2020-09-06 07:31:43,818 | CVTrainer-INFO: Validating ...
+2020-09-06 07:32:14,396 | CVTrainer-INFO: Epoch 33 finished --> Elapsed Time: 291.4442920573056s
+2020-09-06 07:32:14,397 | CVTrainer-INFO: Avg. train loss: 0.2542756497859955
+2020-09-06 07:32:14,397 | CVTrainer-INFO: Avg. validation loss: 0.24401342868804932
+2020-09-06 07:32:14,397 | CVTrainer-INFO: Starting epoch 34
+2020-09-06 07:36:35,432 | CVTrainer-INFO: Validating ...
+2020-09-06 07:37:05,925 | CVTrainer-INFO: Epoch 34 finished --> Elapsed Time: 291.5277160843834s
+2020-09-06 07:37:05,925 | CVTrainer-INFO: Avg. train loss: 0.2530153691768646
+2020-09-06 07:37:05,926 | CVTrainer-INFO: Avg. validation loss: 0.24133673310279846
+2020-09-06 07:37:05,926 | CVTrainer-INFO: Starting epoch 35
+2020-09-06 07:41:26,885 | CVTrainer-INFO: Validating ...
+2020-09-06 07:41:57,428 | CVTrainer-INFO: Epoch 35 finished --> Elapsed Time: 291.5015509929508s
+2020-09-06 07:41:57,429 | CVTrainer-INFO: Avg. train loss: 0.2515101432800293
+2020-09-06 07:41:57,429 | CVTrainer-INFO: Avg. validation loss: 0.24019677937030792
+2020-09-06 07:41:57,429 | CVTrainer-INFO: Starting epoch 36
+2020-09-06 07:46:18,640 | CVTrainer-INFO: Validating ...
+2020-09-06 07:46:49,142 | CVTrainer-INFO: Epoch 36 finished --> Elapsed Time: 291.7126795630902s
+2020-09-06 07:46:49,142 | CVTrainer-INFO: Avg. train loss: 0.24937434494495392
+2020-09-06 07:46:49,142 | CVTrainer-INFO: Avg. validation loss: 0.24202696979045868
+2020-09-06 07:46:49,143 | CVTrainer-INFO: Starting epoch 37

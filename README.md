@@ -83,6 +83,7 @@ with the configuration from above the following results are obtained. There is n
 appart from that: the training curve shows that the learning rate was probably reduced too early (The curve flattens significantly at epoch 40)
 
 without SE-module:
+
 folder: 1, accuracy: 0.8867491079720417 
 
 folder: 2, accuracy: 0.8888019942323672 
@@ -92,9 +93,13 @@ folder: 3, accuracy: 0.8866024732391613
 folder: 4, accuracy: 0.8881176988122587 
 
 with SE-module:
+
 folder: 1, accuracy: 0.8850383694217704 
+
 folder: 2, accuracy: 0.8843540740016619 
+
 folder: 3, accuracy: 0.8831321178943252 
+
 folder: 4, accuracy: 0.8847450999560096
 
 
@@ -105,29 +110,45 @@ In this case though, the use of the SE-module even worsens the results (not dram
 without reducing the learning rate:
 
 without SE-module:
+
 folder: 1, accuracy: 0.9005327728627988 
+
 folder: 2, accuracy: 0.8948628965247568 
+
 folder: 3, accuracy: 0.9013148247714942 
+
 folder: 4, accuracy: 0.9006305293513857 
 
 with SE-module:
+
 folder: 1, accuracy: 0.8971112957622562 
+
 folder: 2, accuracy: 0.8964758785864412 
+
 folder: 3, accuracy: 0.8962803656092673 
+
 folder: 4, accuracy: 0.8983821301138863 
 
 hughe differences have shown up in a previous training with a much higher initial learning rate (0.1). The model without SE-module struggles tremendously and lacks robustness, while the other model performs well:
 
 with SE-module:
+
 folder: 1, accuracy: 0.9166625934796422 
+
 folder: 2, accuracy: 0.9266337553155091 
+
 folder: 3, accuracy: 0.8540495625397135 
+
 folder: 4, accuracy: 0.9008260423285596 
 
 without SE-module:
+
 folder: 1, accuracy: 0.6791143262134024 
+
 folder: 2, accuracy: 0.8304902487902635 
+
 folder: 3, accuracy: 0.8525832152109096 
+
 folder: 4, accuracy: 0.7123515323329586 
 
 ### Further notes/assumptions:

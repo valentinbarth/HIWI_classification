@@ -79,15 +79,16 @@ you might change the model in line 45 from resnet to se_resnet (see comment)
 
 ## Result
 
-### Final results:
-
 with the configuration from above the following results are obtained. There is no significant difference between the two networks.
 appart from that: the training curve shows that the learning rate was probably reduced too early (The curve flattens significantly at epoch 40)
 
 without SE-module:
 folder: 1, accuracy: 0.8867491079720417 
+
 folder: 2, accuracy: 0.8888019942323672 
+
 folder: 3, accuracy: 0.8866024732391613 
+
 folder: 4, accuracy: 0.8881176988122587 
 
 with SE-module:
@@ -115,14 +116,28 @@ folder: 2, accuracy: 0.8964758785864412
 folder: 3, accuracy: 0.8962803656092673 
 folder: 4, accuracy: 0.8983821301138863 
 
+hughe differences have shown up in a previous training with a much higher initial learning rate (0.1). The model without SE-module struggles tremendously and lacks robustness, while the other model performs well:
 
-Notes:
+with SE-module:
+folder: 1, accuracy: 0.9166625934796422 
+folder: 2, accuracy: 0.9266337553155091 
+folder: 3, accuracy: 0.8540495625397135 
+folder: 4, accuracy: 0.9008260423285596 
+
+without SE-module:
+folder: 1, accuracy: 0.6791143262134024 
+folder: 2, accuracy: 0.8304902487902635 
+folder: 3, accuracy: 0.8525832152109096 
+folder: 4, accuracy: 0.7123515323329586 
+
+### Further notes/assumptions:
 
 * I assume that the optimal configuration in terms of initial learning rate and learning rate step has just not been found yet. 
 * There are also other measures beside accuracy (e.g. precision, recall, ...) that should to be considered in order to assess the performance of the model.
 * This task (classification of 4 classes) is not very difficult for a neural network and it might be possible that the gain of the SE-module is stronger in harder tasks.
+* SE-module seems to be increase the robustness and overall performance in unfavorable settings of hyperparameters.
 
-  |
+
 ## References
 
 [paper](https://arxiv.org/pdf/1709.01507.pdf)

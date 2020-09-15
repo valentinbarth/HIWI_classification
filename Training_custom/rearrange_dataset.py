@@ -14,9 +14,9 @@ import numpy as np
 
 
 # original dataset dir 
-datapath = '/home/vbarth/HIWI/classificationDataValentin/DataBase/'
+datapath = '/home/mrunz/HIWI/classificationDataValentin/DataBase/'
 #there will be created another dir which will actually be used by the load_dataset module
-new_datapath = '/home/vbarth/HIWI/classificationDataValentin/mixed_cropped'
+new_datapath = '/home/mrunz/HIWI/classificationDataValentin/mixed_cropped'
 
 
 def rgb2gray(rgb):
@@ -59,7 +59,7 @@ def crop(save_path, input, cls, n_img, height, width):
 
 # produce dataset of cropped images of the 4 classes (WS ecluded) in one folder
 #the class is indicated in the images names, the images are cropped (height,width)
-def create_dataset_mixed_cropped(path = datapath, target_dir = '/home/vbarth/HIWI/classificationDataValentin/mixed_cropped', height = 150, width = 150, testsplit = 0.2):
+def create_dataset_mixed_cropped(path = datapath, target_dir = new_datapath, height = 150, width = 150, testsplit = 0.2):
 
     # Create target Directory if doesn't exist
     mixed_cropped = target_dir

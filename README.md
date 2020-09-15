@@ -20,10 +20,10 @@ You can use the files provided in the folder `Docker` to accomplish these settin
 
 ## Dataset and Preprocessing
 
-The dataset is supplied by Marlen (Dr. Weiss?). The preprocessing of the data is done in the module `rearrange_dataset`. The images are cropped (further data augmentation is not performed but might be added) checked for white space (and in case of more than 50% white discarded - too much background). There is no mean normalization/zero centering, this might be added  if needed. The dataset is split into a test set (20%) and a train set(80%). The class will be denoted in the file's name (and not in the folder anymore).
+The dataset is supplied by the Pathological Institute Mannheim containing 2D pathohistological tissue samples. The preprocessing of the data is done in the module `rearrange_dataset`. The images are cropped (further data augmentation is not performed but might be added) checked for white space (and in case of more than 50% white discarded - too much background). There is no mean normalization/zero centering, this might be added  if needed. The dataset is split into a test set (20%) and a train set(80%). The class will be denoted in the file's name (and not in the folder anymore).
 
-Before running `python rearrange_dataset.py` you should give the right datapaths in the beginning of the file:
-* `datapath` should be the path to the original data supplied by Marlen
+Before running `./Training_custom/python rearrange_dataset.py` you should give the right datapaths in the beginning of the file:
+* `datapath` should be the path to the original data set
 * `new_datapath` should be the path to the new created dataset
 
 Some hyperparameters might be adjusted if wished (but defaults are given):
@@ -33,11 +33,11 @@ Some hyperparameters might be adjusted if wished (but defaults are given):
 
 ## Training
 
-Different Resnet and SE-ResNet architectures (18, 34, 50, 101, 152/20, 32) are implemented and can be choosen(see `senet/baseline.py` and `senet/se_resnet.py`).
+Different Resnet and SE-ResNet architectures (18, 34, 50, 101, 152/20, 32) are implemented and can be choosen (see `senet/baseline.py` and `senet/se_resnet.py`).
 The code was tested on the smallest model resnet 18 (in the code called se_resnet20 or resnet20) for runtime reasons. 
 
 Call in terminal `python training.py` to train the model. 
-Basically this script initializes the trainer with the **specified model**(in line 55), optimizer, scheduler and criterion.
+Basically this script initializes the trainer with the **specified model** (in line 55), optimizer, scheduler and criterion.
 These default hyperparameters are oriented on the paper (or respectively the pytorch implementation of it). 
 
 In the 'train_config' dictionary you might set the number of epochs, batch size, the **outputfolder** (relative path)

@@ -103,7 +103,8 @@ def create_dataset_mixed_cropped(path = datapath, target_dir = new_datapath, hei
         n_files = (len([name for name in os.listdir(current_path) if os.path.isfile(os.path.join(current_path, name))]))
         for root, dirs, files in os.walk(current_path, topdown=False):
             for name in files:
-                   
+                if not name.endswith(".jpg"):
+                    continue
                 if os.path.isfile(os.path.join(current_path, name)) == False:
                     continue
                 #create trainset in traindir (from each class <testsplit> % is splitted for testing)

@@ -18,12 +18,12 @@ import numpy as np
 import os
 from os.path import join
 import argparse
+import glob
 
 #import Training_custom.load_dataset
 
 from senet.baseline import resnet20
 from senet.se_resnet import se_resnet20
-
 
 
 ##############Traincurve##############
@@ -74,7 +74,7 @@ def plot_traincurve(fold_i):
     plt.savefig(join(save_path, "loss_curve_" + args.identifier + ".png"))
     plt.show() 
 
-n_files = (len([name for name in os.listdir(root_path)]))
+n_files = len(glob.glob(root_path + './fold_*'))
 #print(n_files)
 
 for fold in range(n_files):

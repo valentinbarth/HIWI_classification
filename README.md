@@ -65,16 +65,16 @@ There are two scripts for evaluation: `traincurve.py` and `evaluate.py`:
 `python traincurve.py -d <top_folder/> -i <name des outputfiles> -e checkpoint_epoche`  
 e.g.: `python traincurve.py -d "Runs/se_resnet_trained_final/" -i "se_resnet_final" -e 149`
  
-train_chkpt_149.tar has to exist, the file is then loaded and used. The plot is safed at: 'evaluation/plots' 
-(both dirs are created).
+**train_chkpt_149.tar has to exist**, the file is then loaded and used.  
+The plot is safed at: 'evaluation/plots' (both dirs are created).
 
 **evaluatie.py** calculates the accuracy, call (in shell) by: 
 
 `python evaluate.py --dir <rootdir/experiment/> --epoch <epoch to> `  
 e.g.: `python evaluate.py --dir Runs/se_resnet_trained/ --epoch 149`
 
-loops over all folds and calculates + stores the accuracies in a file in the root folder of the experiment
-you might change the model in line 45 from resnet to se_resnet (see comment)
+loops over all folds and calculates + stores the accuracies in a file in the root folder of the experiment.  
+You might **change the model** in line 45 from resnet to se_resnet (see comment)
 
 
 ## Result

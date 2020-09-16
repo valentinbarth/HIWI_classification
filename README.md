@@ -42,7 +42,7 @@ These default hyperparameters are oriented on the paper (or respectively the pyt
 
 In the 'train_config' dictionary you might set the number of epochs, batch size, the **outputfolder** (relative path)
 and the split for cross validation (here you should also choose the appropriate number of folds when inizializen the trainer in line 68).
-Also take care of **giving the right path to your data**(in line 51) when inizializing the dataset.
+Also take care of **giving the right path to your data** (in line 51) when inizializing the dataset.
 
 The final version of the training was performed with the following settings:
 * number of epochs: 150
@@ -60,18 +60,18 @@ The training produces folders with checkpoints to load the trained model from an
 
 There are two scripts for evaluation: `traincurve.py` and `evaluate.py`:
 
-**Traincurve.py** plotts losses of a training against epochs, call by:
+**Traincurve.py** plotts losses of a training against epochs, call (in shell) by:
  
-`python traincurve.py -d <top_folder/> -i <name des outputfiles> -e checkpoint_epoche` 
-for example: `python traincurve.py -d "Runs/se_resnet_trained_final/" -i "se_resnet_final" -e 149`
+`python traincurve.py -d <top_folder/> -i <name des outputfiles> -e checkpoint_epoche`  
+e.g.: `python traincurve.py -d "Runs/se_resnet_trained_final/" -i "se_resnet_final" -e 149`
  
 train_chkpt_149.tar has to exist, the file is then loaded and used. The plot is safed at: 'evaluation/plots' 
 (both dirs are created).
 
-**evaluatie.py** calculates the accuracy, call in shell: 
+**evaluatie.py** calculates the accuracy, call (in shell) by: 
 
-`python evaluate.py --dir <rootdir/experiment/> --epoch <epoch to> `
-e.g. in shell: `python evaluate.py --dir Runs/se_resnet_trained/ --epoch 149`
+`python evaluate.py --dir <rootdir/experiment/> --epoch <epoch to> `  
+e.g.: `python evaluate.py --dir Runs/se_resnet_trained/ --epoch 149`
 
 loops over all folds and calculates + stores the accuracies in a file in the root folder of the experiment
 you might change the model in line 45 from resnet to se_resnet (see comment)
